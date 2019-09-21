@@ -1,0 +1,15 @@
+C:\Users\Dima\source\repos\MoviesAdviser\MoviesAdviser\bin\Debug\MoviesAdviser.exe.config
+C:\Users\Dima\source\repos\MoviesAdviser\MoviesAdviser\bin\Debug\MoviesAdviser.exe
+C:\Users\Dima\source\repos\MoviesAdviser\MoviesAdviser\bin\Debug\MoviesAdviser.pdb
+C:\Users\Dima\source\repos\MoviesAdviser\MoviesAdviser\obj\Debug\MoviesAdviser.csprojAssemblyReference.cache
+C:\Users\Dima\source\repos\MoviesAdviser\MoviesAdviser\obj\Debug\MainWindow.g.cs
+C:\Users\Dima\source\repos\MoviesAdviser\MoviesAdviser\obj\Debug\App.g.cs
+C:\Users\Dima\source\repos\MoviesAdviser\MoviesAdviser\obj\Debug\MoviesAdviser_MarkupCompile.cache
+C:\Users\Dima\source\repos\MoviesAdviser\MoviesAdviser\obj\Debug\MoviesAdviser_MarkupCompile.lref
+C:\Users\Dima\source\repos\MoviesAdviser\MoviesAdviser\obj\Debug\MainWindow.baml
+C:\Users\Dima\source\repos\MoviesAdviser\MoviesAdviser\obj\Debug\MoviesAdviser.g.resources
+C:\Users\Dima\source\repos\MoviesAdviser\MoviesAdviser\obj\Debug\MoviesAdviser.Properties.Resources.resources
+C:\Users\Dima\source\repos\MoviesAdviser\MoviesAdviser\obj\Debug\MoviesAdviser.csproj.GenerateResource.cache
+C:\Users\Dima\source\repos\MoviesAdviser\MoviesAdviser\obj\Debug\MoviesAdviser.csproj.CoreCompileInputs.cache
+C:\Users\Dima\source\repos\MoviesAdviser\MoviesAdviser\obj\Debug\MoviesAdviser.exe
+C:\Users\Dima\source\repos\MoviesAdviser\MoviesAdviser\obj\Debug\MoviesAdviser.pdb

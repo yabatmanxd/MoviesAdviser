@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MoviesAdviser"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Movies Adviser" Height="450" Width="1000" WindowState="Maximized" 
+        Icon="Images/MovieAdvisorIcon.png" WindowStyle="ThreeDBorderWindow" 
+        Background="#F5F5F7FF" FontSize="14"
+        Loaded="Window_Loaded">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="Избранное"></MenuItem>
+        </Menu>
+        <Grid MaxWidth="900" MinWidth="500" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Margin="10" Orientation="Horizontal">
+                <ComboBox Name="cb_genres" SelectedIndex="0" Margin="0 0 20 0">
+                </ComboBox>
+                <ComboBox Name="cb_country" SelectedIndex="0" Margin="0 0 20 0">
+                </ComboBox>
+                <ComboBox Name="cb_year" SelectedIndex="0" Margin="0 0 20 0">
+                </ComboBox>
+                <Button Name="bt_search" Padding="12 0">Найти</Button>
+
+            </StackPanel>
+            <ComboBox Name="cb_sortby" SelectedIndex="0" Grid.Row="0" HorizontalAlignment="Right" Margin="10" >
+                <TextBlock>По популярности</TextBlock>
+            </ComboBox>
+        </Grid>
+
+        
         
     </Grid>
 </Window>

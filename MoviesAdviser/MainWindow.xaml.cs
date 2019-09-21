@@ -20,9 +20,59 @@ namespace MoviesAdviser
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static List<String> GenresList = new List<String>
+        {
+            "Биография",
+            "Боевик",
+            "Военный",
+            "Детектив",
+            "Документальный",
+            "Комедия",
+            "Мультфильм",
+            "Ужасы",
+            "Фэнтези",
+            "Триллер"
+        };
+
+        public static List<String> CountriesList = new List<String>
+        {
+            "Россия",
+            "США",
+            "СССР",
+            "Австралия",
+            "Бельгия",
+            "Великобритания",
+            "Германия",
+            "Гонконг",
+            "Дания",
+            "Индия",
+            "Ирландия",
+            "Испания",
+            "Италия",
+            "Канада",
+            "Китай",
+            "Корея Южная",
+            "Франция",
+            "Швеция",
+            "Япония"
+        };
+
         public MainWindow()
         {                       
             InitializeComponent();
+            cb_genres.ItemsSource = GenresList;
+            cb_country.ItemsSource = CountriesList;
+            for (int i = DateTime.Now.Year; i >= 1900; i--)
+            {
+                cb_year.Items.Add(i);
+            }
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+
     }
 }
