@@ -60,6 +60,14 @@ namespace MoviesAdviser
             "Япония"
         };
 
+        public static List<Models.Movie> listTest = new List<Models.Movie>
+        {
+            new Models.Movie {Title = "Древнее говно мамонта", Poster="123", Country="CCАCP", Year = 3568, Rating = 123},
+            new Models.Movie {Title = "Во все хуи", Poster="11223", Country="ФФаФафц", Year = 763, Rating = 234},
+            new Models.Movie {Title = "Пососи бульбу", Poster="1423", Country="CCфцафцпCP", Year = 2356, Rating = 345},
+            new Models.Movie {Title = "Неважно", Poster="1ыр23", Country="фцп", Year = 9583, Rating = 456}
+        };
+
         public MainWindow()
         {                       
             InitializeComponent();
@@ -69,6 +77,7 @@ namespace MoviesAdviser
             {
                 cb_year.Items.Add(i);
             }
+            lb_movies.ItemsSource = listTest;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

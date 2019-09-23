@@ -35,6 +35,36 @@
             <ComboBox Name="cb_sortby" SelectedIndex="0" Grid.Row="0" HorizontalAlignment="Right" Margin="10" >
                 <TextBlock>По популярности</TextBlock>
             </ComboBox>
+
+            <ListBox Name="lb_movies" Grid.Row="1">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel Height="Auto" Width="Auto" LastChildFill="True" >
+                            <StackPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
+                                <TextBlock FontWeight="Bold" Text="{Binding Path=Title}"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock>Страна:</TextBlock>
+                                    <TextBlock Margin="5 0 0 0" Text="{Binding Path=Country}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock>Жанр:</TextBlock>
+                                    <TextBlock Margin="5 0 0 0" Text="{Binding Path=Genre}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock>Год:</TextBlock>
+                                    <TextBlock Margin="5 0 0 0" Text="{Binding Path=Year}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center">
+                                <TextBlock>Рейтинг:</TextBlock>
+                                <TextBlock FontSize="20" Foreground="Blue" Text="{Binding Path=Rating}"/>
+                            </StackPanel>
+                        </DockPanel>
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
         </Grid>
 
         

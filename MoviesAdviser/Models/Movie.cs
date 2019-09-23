@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MoviesAdviser.Models
 {
-    class Movie
+    public class Movie
     {       
         //Название
         public string Title { get; set; }
@@ -26,6 +26,11 @@ namespace MoviesAdviser.Models
 
         //Список комментариев и рецензий к фильму (в конструкторе не инициализируется, будет заполняться браузерами сайтов
         public List<Comment> comments { get; set; }
+
+        public Movie()
+        {
+
+        }
 
         public Movie (string title, string country, int year)
         {
