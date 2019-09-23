@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Movies Adviser" Height="450" Width="1000" WindowState="Maximized" 
         Icon="Images/MovieAdvisorIcon.png" WindowStyle="ThreeDBorderWindow" 
-        Background="#F5F5F7FF" FontSize="14"
+        Background="#FFedeef0" FontSize="14"
         Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
@@ -36,33 +36,41 @@
                 <TextBlock>По популярности</TextBlock>
             </ComboBox>
 
-            <ListBox Name="lb_movies" Grid.Row="1">
+            <ListBox Name="lb_movies" Grid.Row="1" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" Background="{x:Null}" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <DockPanel Height="Auto" Width="Auto" LastChildFill="True" >
-                            <StackPanel DockPanel.Dock="Left" HorizontalAlignment="Left">
-                                <TextBlock FontWeight="Bold" Text="{Binding Path=Title}"/>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock>Страна:</TextBlock>
-                                    <TextBlock Margin="5 0 0 0" Text="{Binding Path=Country}"/>
+                        <Border Padding="10" BorderBrush="#FFdfe2e8" BorderThickness="0,0,0,1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock FontWeight="Bold" Text="{Binding Path=Title}"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Страна:</TextBlock>
+                                        <TextBlock Margin="5 0 0 0" Text="{Binding Path=Country}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Жанр:</TextBlock>
+                                        <TextBlock Margin="5 0 0 0" Text="{Binding Path=Genre}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Год:</TextBlock>
+                                        <TextBlock Margin="5 0 0 0" Text="{Binding Path=Year}"/>
+                                    </StackPanel>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock>Жанр:</TextBlock>
-                                    <TextBlock Margin="5 0 0 0" Text="{Binding Path=Genre}"/>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock>Рейтинг:</TextBlock>
+                                    <TextBlock FontSize="20" Foreground="Blue" Text="{Binding Path=Rating}"/>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock>Год:</TextBlock>
-                                    <TextBlock Margin="5 0 0 0" Text="{Binding Path=Year}"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center">
-                                <TextBlock>Рейтинг:</TextBlock>
-                                <TextBlock FontSize="20" Foreground="Blue" Text="{Binding Path=Rating}"/>
-                            </StackPanel>
-                        </DockPanel>
+                            </Grid>
+                        </Border>
+                        
 
                     </DataTemplate>
                 </ListBox.ItemTemplate>
+                
 
             </ListBox>
         </Grid>
