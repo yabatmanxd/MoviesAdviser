@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MoviesAdviser.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +22,7 @@ namespace MoviesAdviser
     /// </summary>
     public partial class MainWindow : Window
     {
+        Thread WatchConnection;
         public static List<String> GenresList = new List<String>
         {
             "Биография",
@@ -62,7 +65,7 @@ namespace MoviesAdviser
             InitializeComponent();
             cb_genres.ItemsSource = GenresList;
             cb_country.ItemsSource = CountriesList;
-            for (int i = DateTime.Now.Year; i >= 1900; i--)
+            for (int i = DateTime.Now.Year; i >= 1930; i--)
             {
                 cb_year.Items.Add(i);
             }
@@ -70,9 +73,25 @@ namespace MoviesAdviser
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            Test_Conn();
         }
 
+        private void Bt_search_Click(object sender, RoutedEventArgs e)
+        {
+            var Genre = cb_genres.SelectedItem;
+            var Country = cb_country.SelectedItem;
+            var Year = cb_year.SelectedItem;
+            var SortBy = cb_sortby.SelectedItem;
+            Test_Conn();
+        }
 
+        private void Test_Conn()
+        {
+            if (!ConnectionTester.TestConnection())
+            {
+                new NoConnectionWindow().Show();
+                Close();
+            }
+        }
     }
 }
