@@ -17,29 +17,31 @@
         <Menu Grid.Row="0">
             <MenuItem Header="Избранное"></MenuItem>
         </Menu>
-        <Grid MaxWidth="900" MinWidth="600" Grid.Row="1">
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Margin="10" Orientation="Horizontal">
-                <ComboBox Name="cb_genres" SelectedIndex="0" Margin="0 0 20 0" Height="25" VerticalAlignment="Bottom">
+            <StackPanel MinWidth="500" MaxWidth="960" Grid.Row="0" Margin="10" Orientation="Horizontal">
+                <ComboBox Name="cb_genres" SelectedIndex="0" Margin="0 0 20 0" VerticalAlignment="Bottom">
                 </ComboBox>
                 <ComboBox Name="cb_country" SelectedIndex="0" Margin="0 0 20 0">
                 </ComboBox>
                 <ComboBox Name="cb_year" SelectedIndex="0" Margin="0 0 20 0">
                 </ComboBox>
+                <ComboBox Name="cb_sortby" SelectedIndex="0"  Margin="0 0 20 0">
+                    <TextBlock>По рейтингу</TextBlock>
+                    <TextBlock>По количеству комментариев</TextBlock>
+                </ComboBox>
                 <Button Name="bt_search" Padding="12 0" Click="Bt_search_Click">Найти</Button>
-
+                
             </StackPanel>
-            <ComboBox Name="cb_sortby" SelectedIndex="0" Grid.Row="0" HorizontalAlignment="Right" Margin="10" >
-                <TextBlock>По популярности</TextBlock>
-            </ComboBox>
 
-            <ListBox Name="lb_movies" Grid.Row="1" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" Background="{x:Null}" >
+
+            <ListBox Name="lb_movies" Grid.Row="1"  HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" Background="{x:Null}" VirtualizingPanel.ScrollUnit="Pixel">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border Padding="10" BorderBrush="#FFdfe2e8" BorderThickness="0,0,0,1">
+                        <Border Padding="10" MinWidth="500" MaxWidth="960"   BorderBrush="#FFdfe2e8" BorderThickness="0,0,0,1">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
