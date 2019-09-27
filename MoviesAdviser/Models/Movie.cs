@@ -24,6 +24,8 @@ namespace MoviesAdviser.Models
         //Средний рейтинг (будет получен от Analyzer, в конструкторе не инициализируется)
         public  double Rating { get; set; }
 
+        public string Genre { get; set; }
+
         //Список комментариев и рецензий к фильму (в конструкторе не инициализируется, будет заполняться браузерами сайтов
         public List<Comment> comments { get; set; }
 

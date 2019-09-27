@@ -34,15 +34,25 @@ namespace MoviesAdviser.Services
             foreach (var item in items)
             {
                 var movieObj = new Movie();
-                movieObj.Title = item.QuerySelectorAll("div").Where(t => t.ClassName != null && t.ClassName.Contains("product-list__item_name")).First().TextContent;
-                string tempInfo = item.QuerySelectorAll("div").Where(t => t.ClassName != null && t.ClassName.Contains("product-list__item_info")).First().TextContent;
+
+                movieObj.Title = item.QuerySelectorAll("div.product-list__item_name").First().TextContent;
+
+                string tempInfo = item.QuerySelectorAll("div.product-list__item_info").First().TextContent;
                 tempInfo = tempInfo.Replace("\n", "");
                 tempInfo = tempInfo.Trim();
                 movieObj.Country = tempInfo.Substring(0, tempInfo.LastIndexOf(','));
                 string yearStr = tempInfo.Substring(tempInfo.LastIndexOf(',')+1);
                 movieObj.Year = Int32.Parse(yearStr);
+
                 movieObj.Poster = "aaa";
-                movieObj.Rating = 12;
+
+                string rateImdb = item.QuerySelectorAll("span.meta-rate__imdb").First().LastChild.TextContent.Replace('.',','); 
+                string rateKinopoisk = item.QuerySelectorAll("span.meta-rate__kinopoisk").First().LastChild.TextContent.Replace('.', ',');
+                movieObj.Rating = (Double.Parse(rateImdb) + Double.Parse(rateKinopoisk)) / 2;
+
+                var listGenres = item.QuerySelectorAll("div.meta-labels").First().ChildNodes;
+                movieObj.Genre = String.Join(",", listGenres);
+
                 movieList.Add(movieObj);
             }
 
