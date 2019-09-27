@@ -1,0 +1,81 @@
+﻿<Page x:Class="MoviesAdviser.Pages.main"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MoviesAdviser.Pages"
+      mc:Ignorable="d" 
+      Title="main" Loaded="Page_Loaded" >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="Избранное"></MenuItem>
+        </Menu>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel MinWidth="500" MaxWidth="960" Grid.Row="0" Margin="10" Orientation="Horizontal">
+                <ComboBox Name="cb_genres" SelectedIndex="0" Margin="0 0 20 0" VerticalAlignment="Bottom">
+                </ComboBox>
+                <ComboBox Name="cb_country" SelectedIndex="0" Margin="0 0 20 0">
+                </ComboBox>
+                <ComboBox Name="cb_year" SelectedIndex="0" Margin="0 0 20 0">
+                </ComboBox>
+                <ComboBox Name="cb_sortby" SelectedIndex="0"  Margin="0 0 20 0">
+                    <TextBlock>По рейтингу</TextBlock>
+                    <TextBlock>По количеству комментариев</TextBlock>
+                </ComboBox>
+                <Button Name="bt_search" Padding="12 0" Click="Bt_search_Click">Найти</Button>
+
+            </StackPanel>
+
+
+            <ListBox Name="lb_movies" Grid.Row="1"  HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" Background="{x:Null}" VirtualizingPanel.ScrollUnit="Pixel">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="10" MinWidth="500" MaxWidth="960"   BorderBrush="#FFdfe2e8" BorderThickness="0,0,0,1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock FontWeight="Bold" Text="{Binding Path=Title}"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Страна:</TextBlock>
+                                        <TextBlock Margin="5 0 0 0" Text="{Binding Path=Country}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Жанр:</TextBlock>
+                                        <TextBlock Margin="5 0 0 0" Text="{Binding Path=Genre}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Год:</TextBlock>
+                                        <TextBlock Margin="5 0 0 0" Text="{Binding Path=Year}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock>Рейтинг:</TextBlock>
+                                    <TextBlock FontSize="20" Foreground="Blue" Text="{Binding Path=Rating}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+
+            </ListBox>
+        </Grid>
+
+
+
+    </Grid>
+</Page>

@@ -1,5 +1,5 @@
-﻿using MoviesAdviser.Services;
-using System;
+﻿using System;
+using MoviesAdviser.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,85 +22,18 @@ namespace MoviesAdviser
     /// </summary>
     public partial class MainWindow : Window
     {
-        Thread WatchConnection;
-        public static List<String> GenresList = new List<String>
-        {
-            "Биография",
-            "Боевик",
-            "Военный",
-            "Детектив",
-            "Документальный",
-            "Комедия",
-            "Мультфильм",
-            "Ужасы",
-            "Фэнтези",
-            "Триллер"
-        };
-
-        public static List<String> CountriesList = new List<String>
-        {
-            "Россия",
-            "США",
-            "СССР",
-            "Австралия",
-            "Бельгия",
-            "Великобритания",
-            "Германия",
-            "Гонконг",
-            "Дания",
-            "Индия",
-            "Ирландия",
-            "Испания",
-            "Италия",
-            "Канада",
-            "Китай",
-            "Корея Южная",
-            "Франция",
-            "Швеция",
-            "Япония"
-        };
-
-        public static List<Models.Movie> listTest = new List<Models.Movie>
-        {
-            new Models.Movie {Title = "Древнее говно мамонта", Poster="123", Country="CCАCP", Year = 3568, Rating = 123},
-            new Models.Movie {Title = "Во все хуи", Poster="11223", Country="ФФаФафц", Year = 763, Rating = 234},
-            new Models.Movie {Title = "Пососи бульбу", Poster="1423", Country="CCфцафцпCP", Year = 2356, Rating = 345},
-            new Models.Movie {Title = "Неважно", Poster="1ыр23", Country="фцп", Year = 9583, Rating = 456}
-        };
+        
 
         public MainWindow()
         {                       
             InitializeComponent();
-            cb_genres.ItemsSource = GenresList;
-            cb_country.ItemsSource = CountriesList;
-            for (int i = DateTime.Now.Year; i >= 1930; i--)
-            {
-                cb_year.Items.Add(i);
-            }
-            lb_movies.ItemsSource = listTest;
+            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Test_Conn();
+
         }
 
-        private void Bt_search_Click(object sender, RoutedEventArgs e)
-        {
-            var Genre = cb_genres.SelectedItem;
-            var Country = cb_country.SelectedItem;
-            var Year = cb_year.SelectedItem;
-            var SortBy = cb_sortby.SelectedItem;
-            Test_Conn();
-        }
-
-        private void Test_Conn()
-        {
-            if (!ConnectionTester.TestConnection())
-            {
-                new NoConnectionWindow().Show();
-                Close();
-            }
-        }
     }
 }

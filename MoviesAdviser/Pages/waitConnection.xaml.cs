@@ -1,46 +1,47 @@
-﻿using MoviesAdviser.Services;
-using System;
+﻿using System;
+using MoviesAdviser.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Threading;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MoviesAdviser
+namespace MoviesAdviser.Pages
 {
     /// <summary>
-    /// Interaction logic for NoConnectionWindow.xaml
+    /// Логика взаимодействия для waitConnection.xaml
     /// </summary>
-    public partial class NoConnectionWindow : Window
+    public partial class waitConnection : Page
     {
         Thread WaitConn;
-        public NoConnectionWindow()
+        public waitConnection()
         {
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             WaitConn = new Thread(new ThreadStart(delegate ()
             {
-                while(true)
+                while (true)
                 {
-                    if(ConnectionTester.TestConnection())
+                    if (ConnectionTester.TestConnection())
                     {
                         Application.Current.Dispatcher.Invoke((Action)delegate ()
                         {
-                            new MainWindow().Show();
-                            Close();
-                        });                        
-                        WaitConn.Abort();                                            
+                            var a = NavigationService.GetNavigationService(this);
+                            a.Navigate((Uri)(new Uri("Pages/main.xaml", UriKind.Relative)));
+                        });
+                        WaitConn.Abort();
                     }
                     Thread.Sleep(1000);
                 }

@@ -61,8 +61,11 @@
     </ApplicationDefinition>
     <Compile Include="Interfaces\BrowserInterface.cs" />
     <Compile Include="Models\Movie.cs" />
-    <Compile Include="NoConnectionWindow.xaml.cs">
-      <DependentUpon>NoConnectionWindow.xaml</DependentUpon>
+    <Compile Include="Pages\main.xaml.cs">
+      <DependentUpon>main.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\waitConnection.xaml.cs">
+      <DependentUpon>waitConnection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\Analyzer.cs" />
     <Compile Include="Services\ConnectionTester.cs" />
@@ -81,7 +84,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="NoConnectionWindow.xaml">
+    <Page Include="Pages\main.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\waitConnection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

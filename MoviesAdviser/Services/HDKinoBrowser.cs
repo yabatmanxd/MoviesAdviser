@@ -12,7 +12,11 @@ namespace MoviesAdviser.Services
     {
         public List<Movie> GetMoviesList(string genre, int year, string country)
         {
-            throw new NotImplementedException();
+            var movieList = new List<Movie>();
+
+
+
+            return movieList;
         }
 
         public bool IsAvailable()
