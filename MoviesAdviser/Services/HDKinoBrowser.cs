@@ -9,15 +9,33 @@ using MoviesAdviser.Models;
 
 namespace MoviesAdviser.Services
 {
+    
     //Поиск по 2hdkino.vip
     public class HDKinoBrowser : BrowserInterface
     {
+        //Жанры 2hdkino.vip
+        public static Dictionary<string, int> Genres = new Dictionary<string, int>
+        {
+            {"Боевики", 4},
+            {"Приключения", 14},
+            {"Комедии", 10},
+            {"Криминал", 12},
+            {"Документальные", 7},
+            {"Драмы", 8},
+            {"Семейные", 15},
+            {"Фантастика", 19},
+            {"Исторические", 9},
+            {"Ужасы", 18},
+            {"Мелодрамы", 13},
+            {"Военные", 5}
+        };
+
         public List<Movie> GetMoviesList(string genre, int year, string country)
         {
             var movieList = new List<Movie>();
 
-            //string address = Encoding.ASCII.GetString(Convert.FromBase64String("aHR0cHM6Ly93d3cua2lub25ld3MucnUvdG9wMTAwLXRocmlsbGVyLw=="));
-            string address = @"https://www.tvigle.ru/catalog/filmy/";
+            string address = Encoding.ASCII.GetString(Convert.FromBase64String("aHR0cHM6Ly93d3cua2lub25ld3MucnUvdG9wMTAwLXRocmlsbGVyLw=="));
+            //string address = String.Format(@"https://www.tvigle.ru/catalog/filmy/?release_year={0}&category={1}&country={2}&o=",year,);
             string html;
             using (var client = new WebClient())
             {
@@ -48,10 +66,10 @@ namespace MoviesAdviser.Services
 
                 string rateImdb = item.QuerySelectorAll("span.meta-rate__imdb").First().LastChild.TextContent.Replace('.',','); 
                 string rateKinopoisk = item.QuerySelectorAll("span.meta-rate__kinopoisk").First().LastChild.TextContent.Replace('.', ',');
-                movieObj.Rating = (Double.Parse(rateImdb) + Double.Parse(rateKinopoisk)) / 2;
+                movieObj.Rating = Math.Round((Double.Parse(rateImdb) + Double.Parse(rateKinopoisk)) / 2,2);
 
-                var listGenres = item.QuerySelectorAll("div.meta-labels").First().ChildNodes;
-                movieObj.Genre = String.Join(",", listGenres);
+                var listGenres = item.QuerySelectorAll("div.meta-labels").First().ChildNodes.Where(t=>t.NodeName == "SPAN").Select(t=>t.TextContent);
+                movieObj.Genre = String.Join(", ", listGenres);
 
                 movieList.Add(movieObj);
             }
@@ -64,19 +82,6 @@ namespace MoviesAdviser.Services
             throw new NotImplementedException();
         }
 
-        //Жанры 2hdkino.vip
-        public enum Genres
-        {
-            Биография,
-            Боевики,
-            Военные,
-            Детективы,
-            Документальные,
-            Комедии,
-            Мультфильмы,
-            Ужасы,
-            Фэнтези,
-            Триллеры
-        }
+        
     }
 }
