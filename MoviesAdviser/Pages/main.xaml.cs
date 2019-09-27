@@ -21,6 +21,8 @@ namespace MoviesAdviser.Pages
     /// </summary>
     public partial class main : Page
     {
+        public Services.HDKinoBrowser hdkinoBrowser;
+
         public static List<String> GenresList = new List<String>
         {
             "Биография",
@@ -68,6 +70,8 @@ namespace MoviesAdviser.Pages
                 cb_year.Items.Add(i);
             }
             lb_movies.ItemsSource = listTest;
+
+            hdkinoBrowser = new Services.HDKinoBrowser();
         }
 
         public static List<Models.Movie> listTest = new List<Models.Movie>
@@ -101,6 +105,8 @@ namespace MoviesAdviser.Pages
             var Year = cb_year.SelectedItem;
             var SortBy = cb_sortby.SelectedItem;
             Test_Conn();
+            var listTest = hdkinoBrowser.GetMoviesList("",228,"");
+            lb_movies.ItemsSource = listTest;
         }
     }
 }
