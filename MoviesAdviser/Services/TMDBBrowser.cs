@@ -14,6 +14,27 @@ namespace MoviesAdviser.Services
     //Поиск по The Movie Database
     public class TMDBBrowser : BrowserInterface
     {
+        public bool IsAvailable()
+        {
+            throw new NotImplementedException();
+        }
+
+        private Dictionary<string, string> Genres = new Dictionary<string, string>()
+        {
+            { "Боевики", "28" },            
+            { "Приключения", "12" },            
+            { "Военные", "10752" },
+            { "Криминал", "80" },
+            { "Документальные", "99" },
+            { "Драмы", "18" },
+            { "Семейные", "10751" },
+            { "Комедии", "35" },
+            { "Ужасы", "27" },
+            { "Фантастика", "14" },
+            { "Исторические", "36" },
+            { "Мелодрамы", "10749" },
+            { "Триллер","53" }
+        };
        
         public List<Movie> GetMoviesList(string genre, int year, string country)
         {
@@ -21,9 +42,11 @@ namespace MoviesAdviser.Services
             string URL = "https://api.themoviedb.org/3/discover/movie?api_key=b41296940c36d7ed60f4f56e9d17bf65&language=ru";
             //Установка параметров
             string urlParams = "";
+            string genreID = Genres[genre];
+            urlParams += "&with_genres=" + genreID;
 
             //Создание запроса
-            string json = GetResponse(URL, "GET");
+            string json = GetResponse(URL + urlParams, "GET");
             dynamic data = JsonConvert.DeserializeObject(json);
             dynamic results = data.results;
             Console.WriteLine(results[0]);
@@ -31,7 +54,9 @@ namespace MoviesAdviser.Services
             {               
                 DateTime date = Convert.ToDateTime(res.release_date);
                 dynamic movie = JsonConvert.DeserializeObject(GetMovieInfo(res.id));
-                movies.Add(new Movie((string) res.title, GetCountries(movie),date.Year,GetGenres(movie)));
+                Movie movieObj = new Movie((string)res.title, GetCountries(movie), date.Year, GetGenres(movie));
+                movieObj.Rating = (int)movie.vote_average;
+                movies.Add(movieObj);
             }
 
             return movies;
@@ -60,10 +85,7 @@ namespace MoviesAdviser.Services
             return res;
 
         }
-        public bool IsAvailable()
-        {
-            throw new NotImplementedException();
-        }
+        
              
         private string GetMovieInfo(dynamic id)
         {

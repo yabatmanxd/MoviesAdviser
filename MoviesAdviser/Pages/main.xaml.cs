@@ -25,14 +25,12 @@ namespace MoviesAdviser.Pages
         public TMDBBrowser tmdb;
 
         public static List<String> GenresList = new List<String>
-        {
-            "Биография",
+        {           
             "Боевик",
             "Военный",
             "Детектив",
             "Документальный",
-            "Комедия",
-            "Мультфильм",
+            "Комедия",           
             "Ужасы",
             "Фэнтези",
             "Триллер"
@@ -109,7 +107,7 @@ namespace MoviesAdviser.Pages
             Test_Conn();
             //var listTest = hdkinoBrowser.GetMoviesList("", 228, "");
             //lb_movies.ItemsSource = listTest;
-            var listTest = tmdb.GetMoviesList("", 228, "");
+            var listTest = tmdb.GetMoviesList((string) Genre, 228, "");
             lb_movies.ItemsSource = listTest;
         }
     }
