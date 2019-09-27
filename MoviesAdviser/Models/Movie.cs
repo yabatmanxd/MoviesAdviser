@@ -41,6 +41,14 @@ namespace MoviesAdviser.Models
             Year = year;
         }
 
+        public Movie(string title, string country, int year, string genre)
+        {
+            Title = title;
+            Country = country;
+            Year = year;
+            Genre = genre;
+        }
+
         //Вложенный класс комментария к фильму
         public class Comment
         {

@@ -22,6 +22,7 @@ namespace MoviesAdviser.Pages
     public partial class main : Page
     {
         public Services.HDKinoBrowser hdkinoBrowser;
+        public TMDBBrowser tmdb;
 
         public static List<String> GenresList;
 
@@ -61,6 +62,7 @@ namespace MoviesAdviser.Pages
             lb_movies.ItemsSource = listTest;
 
             hdkinoBrowser = new Services.HDKinoBrowser();
+            tmdb = new TMDBBrowser();
         }
 
         public static List<Models.Movie> listTest = new List<Models.Movie>
@@ -94,7 +96,9 @@ namespace MoviesAdviser.Pages
             var Year = cb_year.SelectedItem;
             var SortBy = cb_sortby.SelectedItem;
             Test_Conn();
-            var listTest = hdkinoBrowser.GetMoviesList("",228,"");
+            //var listTest = hdkinoBrowser.GetMoviesList("", 228, "");
+            //lb_movies.ItemsSource = listTest;
+            var listTest = tmdb.GetMoviesList("", 228, "");
             lb_movies.ItemsSource = listTest;
         }
     }
