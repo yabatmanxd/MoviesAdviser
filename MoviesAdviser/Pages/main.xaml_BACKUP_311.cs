@@ -24,9 +24,21 @@ namespace MoviesAdviser.Pages
         public Services.HDKinoBrowser hdkinoBrowser;
         public TMDBBrowser tmdb;
 
-
+<<<<<<< HEAD
+        public static List<String> GenresList = new List<String>
+        {           
+            "Боевик",
+            "Военный",
+            "Детектив",
+            "Документальный",
+            "Комедия",           
+            "Ужасы",
+            "Фэнтези",
+            "Триллер"
+        };
+=======
         public static List<String> GenresList;
-
+>>>>>>> 1a9d7bd9c687c3e93c6c82d33609f64945b11cad
 
         public static List<String> CountriesList = new List<String>
         {

@@ -24,9 +24,19 @@ namespace MoviesAdviser.Pages
         public Services.HDKinoBrowser hdkinoBrowser;
         public TMDBBrowser tmdb;
 
-
-        public static List<String> GenresList;
-
+        public static List<String> GenresList = new List<String>
+        {
+            "Биография",
+            "Боевик",
+            "Военный",
+            "Детектив",
+            "Документальный",
+            "Комедия",
+            "Мультфильм",
+            "Ужасы",
+            "Фэнтези",
+            "Триллер"
+        };
 
         public static List<String> CountriesList = new List<String>
         {
@@ -54,7 +64,6 @@ namespace MoviesAdviser.Pages
         public main()
         {
             InitializeComponent();
-            GenresList = HDKinoBrowser.Genres.Select(t=>t.Key).ToList();
             cb_genres.ItemsSource = GenresList;
             cb_country.ItemsSource = CountriesList;
             for (int i = DateTime.Now.Year; i >= 1930; i--)
@@ -100,7 +109,7 @@ namespace MoviesAdviser.Pages
             Test_Conn();
             //var listTest = hdkinoBrowser.GetMoviesList("", 228, "");
             //lb_movies.ItemsSource = listTest;
-            var listTest = tmdb.GetMoviesList((string) Genre, 228, "");
+            var listTest = tmdb.GetMoviesList("", 228, "");
             lb_movies.ItemsSource = listTest;
         }
     }

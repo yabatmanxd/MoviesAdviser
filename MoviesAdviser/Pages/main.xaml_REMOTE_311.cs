@@ -24,9 +24,7 @@ namespace MoviesAdviser.Pages
         public Services.HDKinoBrowser hdkinoBrowser;
         public TMDBBrowser tmdb;
 
-
         public static List<String> GenresList;
-
 
         public static List<String> CountriesList = new List<String>
         {
@@ -100,7 +98,7 @@ namespace MoviesAdviser.Pages
             Test_Conn();
             //var listTest = hdkinoBrowser.GetMoviesList("", 228, "");
             //lb_movies.ItemsSource = listTest;
-            var listTest = tmdb.GetMoviesList((string) Genre, 228, "");
+            var listTest = tmdb.GetMoviesList("", 228, "");
             lb_movies.ItemsSource = listTest;
         }
     }
