@@ -27,6 +27,7 @@ namespace MoviesAdviser
         {                       
             InitializeComponent();
             
+            
         }
 
     }

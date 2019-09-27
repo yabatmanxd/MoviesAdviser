@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MoviesAdviser.Models;
+using System.Windows.Threading;
+using System.Threading;
 
 namespace MoviesAdviser.Pages
 {
@@ -21,63 +24,32 @@ namespace MoviesAdviser.Pages
     /// </summary>
     public partial class main : Page
     {
-        public Services.HDKinoBrowser hdkinoBrowser;
+        public HDKinoBrowser hdkinoBrowser;
         public TMDBBrowser tmdb;
 
+        Thread testThread;
 
         public static List<String> GenresList;
-
-
-        public static List<String> CountriesList = new List<String>
-        {
-            "Россия",
-            "США",
-            "СССР",
-            "Австралия",
-            "Бельгия",
-            "Великобритания",
-            "Германия",
-            "Гонконг",
-            "Дания",
-            "Индия",
-            "Ирландия",
-            "Испания",
-            "Италия",
-            "Канада",
-            "Китай",
-            "Корея Южная",
-            "Франция",
-            "Швеция",
-            "Япония"
-        };
 
         public main()
         {
             InitializeComponent();
-            GenresList = HDKinoBrowser.Genres.Select(t=>t.Key).ToList();
+            GenresList = Dictionaries.hdkinoGenres.Select(t=>t.Key).ToList();
             cb_genres.ItemsSource = GenresList;
-            cb_country.ItemsSource = CountriesList;
+            cb_country.ItemsSource = Dictionaries.hdkinoCountries.Select(t => t.Key).ToList();
             for (int i = DateTime.Now.Year; i >= 1930; i--)
             {
                 cb_year.Items.Add(i);
             }
-            lb_movies.ItemsSource = listTest;
 
-            hdkinoBrowser = new Services.HDKinoBrowser();
+            hdkinoBrowser = new HDKinoBrowser();
             tmdb = new TMDBBrowser();
         }
-
-        public static List<Models.Movie> listTest = new List<Models.Movie>
-        {
-            new Models.Movie {Title = "Древнее говно мамонта", Poster="123", Country="CCАCP", Year = 3568, Rating = 123},
-            new Models.Movie {Title = "Во все хуи", Poster="11223", Country="ФФаФафц", Year = 763, Rating = 234},
-            new Models.Movie {Title = "Пососи бульбу", Poster="1423", Country="CCфцафцпCP", Year = 2356, Rating = 345},
-            new Models.Movie {Title = "Неважно", Poster="1ыр23", Country="фцп", Year = 9583, Rating = 456}
-        };
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Test_Conn();
+            gifLoad.Visibility = Visibility.Hidden;
         }
 
         private void Test_Conn()
@@ -93,20 +65,38 @@ namespace MoviesAdviser.Pages
 
         private void Bt_search_Click(object sender, RoutedEventArgs e)
         {
+            List<Movie> tmpList;
+            tb_hint.Text = "";                        // вот эта хуета срабатывает только после того как получили
+            gifLoad.Visibility = Visibility.Visible;  // весь список фильмов, а хотелось бы чтобы текстбокс сначала очистился, а потом уже подгрузился список фильмов
+                                                      // ну и анимка загрузки соответственно должна сначала запустится перед неачалом загрузки и после окончания спрятать её
+
+
             var Genre = cb_genres.SelectedItem;
             var Country = cb_country.SelectedItem;
             var Year = cb_year.SelectedItem;
             var SortBy = ((TextBlock) cb_sortby.SelectedItem).Text;
             var Site = ((TextBlock)cb_site.SelectedItem).Text;
             Test_Conn();
+
             if (Site.Equals("tvigle.ru"))
             {
-                lb_movies.ItemsSource = hdkinoBrowser.GetMoviesList((string)Genre, (int)Year, "", SortBy);
+
+                tmpList = hdkinoBrowser.GetMoviesList((string)Genre, (int)Year, (string)Country, SortBy);
             }
             else
             {
-                lb_movies.ItemsSource = tmdb.GetMoviesList((string)Genre, (int)Year, "", SortBy);
-            }                       
+                tmpList = tmdb.GetMoviesList((string)Genre, (int)Year, "", SortBy);
+            }
+            if (tmpList.Count <= 0)
+            {
+                tb_hint.Text = "К сожалению по данным критериям фильмов не найдено";
+                lb_movies.ItemsSource = null;
+            }
+            else
+            {
+                lb_movies.ItemsSource = tmpList;
+            }
+            gifLoad.Visibility = Visibility.Hidden;
         }
     }
 }

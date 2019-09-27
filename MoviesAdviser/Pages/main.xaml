@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MoviesAdviser.Pages"
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       mc:Ignorable="d" 
       Title="main" Loaded="Page_Loaded" >
 
@@ -15,6 +16,10 @@
         <Menu Grid.Row="0">
             <MenuItem Header="Избранное"></MenuItem>
         </Menu>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible">
+            <TextBlock Name="tb_hint" FontSize="14">Установите фильтры и нажмите кнопку "Найти"</TextBlock>
+            <Image gif:ImageBehavior.AnimatedSource="../Images/loading.gif" Name="gifLoad" Width="100" Height="100" />
+        </StackPanel>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>

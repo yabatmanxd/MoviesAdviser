@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Movies Adviser" Height="450" Width="1000" WindowState="Maximized" 
         Icon="Images/MovieAdvisorIcon.png" WindowStyle="ThreeDBorderWindow" 
-        Background="#FFedeef0" FontSize="14">
+        Background="#FFedeef0" FontSize="14" MinWidth="630" MinHeight="400">
     <Frame Name="mainFrame" NavigationUIVisibility="Hidden" Source="Pages/main.xaml">
     </Frame>
 
