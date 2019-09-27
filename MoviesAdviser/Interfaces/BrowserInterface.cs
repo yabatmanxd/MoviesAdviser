@@ -12,7 +12,7 @@ namespace MoviesAdviser
     //Все методы, общие для обоих браузеров, записываются в первую очередь сюда. Это важно.
     interface BrowserInterface
     {
-        List<Movie> GetMoviesList(string genre, int year, string country);
+        List<Movie> GetMoviesList(string genre, int year, string country, string sortMethod);
 
         bool IsAvailable();
     }

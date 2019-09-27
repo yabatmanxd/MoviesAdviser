@@ -96,12 +96,17 @@ namespace MoviesAdviser.Pages
             var Genre = cb_genres.SelectedItem;
             var Country = cb_country.SelectedItem;
             var Year = cb_year.SelectedItem;
-            var SortBy = cb_sortby.SelectedItem;
+            var SortBy = ((TextBlock) cb_sortby.SelectedItem).Text;
+            var Site = ((TextBlock)cb_site.SelectedItem).Text;
             Test_Conn();
-            //var listTest = hdkinoBrowser.GetMoviesList("", 228, "");
-            //lb_movies.ItemsSource = listTest;
-            var listTest = tmdb.GetMoviesList((string) Genre, 228, "");
-            lb_movies.ItemsSource = listTest;
+            if (Site.Equals("tvigle.ru"))
+            {
+                lb_movies.ItemsSource = hdkinoBrowser.GetMoviesList((string)Genre, (int)Year, "", SortBy);
+            }
+            else
+            {
+                lb_movies.ItemsSource = tmdb.GetMoviesList((string)Genre, (int)Year, "", SortBy);
+            }                       
         }
     }
 }

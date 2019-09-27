@@ -35,15 +35,22 @@ namespace MoviesAdviser.Services
             { "Мелодрамы", "10749" },
             { "Триллер","53" }
         };
-       
-        public List<Movie> GetMoviesList(string genre, int year, string country)
+        private Dictionary<string, string> SortMethods = new Dictionary<string, string>()
+        {
+            { "По рейтингу","vote_average" },
+            { "По количеству комментариев","popularity" }
+        };
+        public List<Movie> GetMoviesList(string genre, int year, string country, string sortMethod)
         {
             List<Movie> movies = new List<Movie>();
             string URL = "https://api.themoviedb.org/3/discover/movie?api_key=b41296940c36d7ed60f4f56e9d17bf65&language=ru";
             //Установка параметров
             string urlParams = "";
             string genreID = Genres[genre];
-            urlParams += "&with_genres=" + genreID;
+            string sort = SortMethods[sortMethod];
+            urlParams += "&with_genres=" + genreID;            
+            urlParams += "&sort_by=" + sort + ".desc";
+            urlParams += "&year=" + year;
 
             //Создание запроса
             string json = GetResponse(URL + urlParams, "GET");
@@ -70,7 +77,8 @@ namespace MoviesAdviser.Services
             {
                 res += mvCountry.name + ",";
             }
-            res = res.Remove(res.Length - 1);
+            if(res.Length > 0)
+                res = res.Remove(res.Length - 1);
             return res;
         }
         private string GetGenres(dynamic movie)

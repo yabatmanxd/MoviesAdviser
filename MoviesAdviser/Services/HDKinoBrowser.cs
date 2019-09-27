@@ -30,7 +30,7 @@ namespace MoviesAdviser.Services
             {"Военные", 5}
         };
 
-        public List<Movie> GetMoviesList(string genre, int year, string country)
+        public List<Movie> GetMoviesList(string genre, int year, string country, string sortMethod)
         {
             var movieList = new List<Movie>();
 
