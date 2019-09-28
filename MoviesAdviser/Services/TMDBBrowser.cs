@@ -19,35 +19,15 @@ namespace MoviesAdviser.Services
             throw new NotImplementedException();
         }
 
-        private Dictionary<string, string> Genres = new Dictionary<string, string>()
-        {
-            { "Боевики", "28" },            
-            { "Приключения", "12" },            
-            { "Военные", "10752" },
-            { "Криминал", "80" },
-            { "Документальные", "99" },
-            { "Драмы", "18" },
-            { "Семейные", "10751" },
-            { "Комедии", "35" },
-            { "Ужасы", "27" },
-            { "Фантастика", "14" },
-            { "Исторические", "36" },
-            { "Мелодрамы", "10749" },
-            { "Триллер","53" }
-        };
-        private Dictionary<string, string> SortMethods = new Dictionary<string, string>()
-        {
-            { "По рейтингу","vote_average" },
-            { "По количеству комментариев","popularity" }
-        };
+       
         public List<Movie> GetMoviesList(string genre, int year, string country, string sortMethod)
         {
             List<Movie> movies = new List<Movie>();
             string URL = "https://api.themoviedb.org/3/discover/movie?api_key=b41296940c36d7ed60f4f56e9d17bf65&language=ru";
             //Установка параметров
             string urlParams = "";
-            string genreID = Genres[genre];
-            string sort = SortMethods[sortMethod];
+            string genreID = Dictionaries.TMDBGenres[genre];
+            string sort = Dictionaries.TMDBSortMethods[sortMethod];
             urlParams += "&with_genres=" + genreID;            
             urlParams += "&sort_by=" + sort + ".desc";
             urlParams += "&year=" + year;

@@ -9,7 +9,7 @@ namespace MoviesAdviser
     class Dictionaries
     {
         //Жанры 2hdkino.vip
-        public static Dictionary<string, int> hdkinoGenres = new Dictionary<string, int>
+        public static readonly Dictionary<string, int> hdkinoGenres = new Dictionary<string, int>
         {
             {"Боевики", 4},
             {"Приключения", 14},
@@ -26,7 +26,7 @@ namespace MoviesAdviser
         };
 
         //Cтраны 2hdkino.vip
-        public static Dictionary<string, int> hdkinoCountries = new Dictionary<string, int>
+        public static readonly Dictionary<string, int> hdkinoCountries = new Dictionary<string, int>
         {
             {"Россия",4},
             {"США",27},
@@ -47,6 +47,31 @@ namespace MoviesAdviser
             {"Франция",16},
             {"Швеция",12},
             {"Япония",11}
+        };
+
+        //Жанры TMDB
+        public static readonly Dictionary<string, string> TMDBGenres = new Dictionary<string, string>()
+        {
+            { "Боевики", "28" },
+            { "Приключения", "12" },
+            { "Военные", "10752" },
+            { "Криминал", "80" },
+            { "Документальные", "99" },
+            { "Драмы", "18" },
+            { "Семейные", "10751" },
+            { "Комедии", "35" },
+            { "Ужасы", "27" },
+            { "Фантастика", "14" },
+            { "Исторические", "36" },
+            { "Мелодрамы", "10749" },
+            { "Триллер","53" }
+        };
+        
+        //Методы сортировки TMDB
+        public static readonly Dictionary<string, string> TMDBSortMethods = new Dictionary<string, string>()
+        {
+            { "По рейтингу","vote_average" },
+            { "По количеству комментариев","popularity" }
         };
     }
 }
