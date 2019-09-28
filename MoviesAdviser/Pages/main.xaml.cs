@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 using MoviesAdviser.Models;
 using System.Windows.Threading;
 using System.Threading;
+using System.ComponentModel;
+using System.Dynamic;
 
 namespace MoviesAdviser.Pages
 {
@@ -27,7 +29,7 @@ namespace MoviesAdviser.Pages
         public HDKinoBrowser hdkinoBrowser;
         public TMDBBrowser tmdb;
 
-        Thread testThread;
+        Thread BrowsingThread;
 
         public static List<String> GenresList;
 
@@ -66,37 +68,66 @@ namespace MoviesAdviser.Pages
         private void Bt_search_Click(object sender, RoutedEventArgs e)
         {
             List<Movie> tmpList;
-            tb_hint.Text = "";                        // вот эта хуета срабатывает только после того как получили
-            gifLoad.Visibility = Visibility.Visible;  // весь список фильмов, а хотелось бы чтобы текстбокс сначала очистился, а потом уже подгрузился список фильмов
-                                                      // ну и анимка загрузки соответственно должна сначала запустится перед неачалом загрузки и после окончания спрятать её
+            tb_hint.Text = "";
+            lb_movies.Visibility = Visibility.Hidden;
+            gifLoad.Visibility = Visibility.Visible;  
 
-
+            
             var Genre = cb_genres.SelectedItem;
             var Country = cb_country.SelectedItem;
             var Year = cb_year.SelectedItem;
             var SortBy = ((TextBlock) cb_sortby.SelectedItem).Text;
             var Site = ((TextBlock)cb_site.SelectedItem).Text;
             Test_Conn();
-
+            BackgroundWorker bg = new BackgroundWorker();
+            dynamic filters = new ExpandoObject();
+            filters.Genre = Genre;
+            filters.Country = Country;
+            filters.Year = Year;
+            filters.SortBy = SortBy;
+            filters.Site = Site;
             if (Site.Equals("tvigle.ru"))
             {
-
-                tmpList = hdkinoBrowser.GetMoviesList((string)Genre, (int)Year, (string)Country, SortBy);
+                bg.DoWork += tvigle_work;                
+                //tmpList = hdkinoBrowser.GetMoviesList((string)Genre, (int)Year, (string)Country, SortBy);
             }
             else
             {
-                tmpList = tmdb.GetMoviesList((string)Genre, (int)Year, "", SortBy);
+                bg.DoWork += TMDB_work;
+                
+               // tmpList = tmdb.GetMoviesList((string)Genre, (int)Year, "", SortBy);
             }
-            if (tmpList.Count <= 0)
+            bg.RunWorkerCompleted += Bg_RunWorkerCompleted;
+            bg.RunWorkerAsync(filters);
+        }
+
+        private void Bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            List<Movie> movies = (List<Movie>) e.Result;
+            if (movies.Count <= 0)
             {
                 tb_hint.Text = "К сожалению по данным критериям фильмов не найдено";
                 lb_movies.ItemsSource = null;
             }
             else
             {
-                lb_movies.ItemsSource = tmpList;
+                lb_movies.ItemsSource = movies;
             }
             gifLoad.Visibility = Visibility.Hidden;
+            lb_movies.Visibility = Visibility.Visible;
+        }
+
+        private void TMDB_work(object sender, DoWorkEventArgs e)
+        {
+            dynamic filters = e.Argument;
+            List<Movie> movies = tmdb.GetMoviesList((string)filters.Genre, (int)filters.Year, (string)filters.Country, (string)filters.SortBy);
+            e.Result = movies;
+        }
+        private void tvigle_work(object sender, DoWorkEventArgs e)
+        {
+            dynamic filters = e.Argument;
+            List<Movie> movies = hdkinoBrowser.GetMoviesList((string)filters.Genre, (int)filters.Year, (string)filters.Country, (string)filters.SortBy);
+            e.Result = movies;
         }
     }
 }
