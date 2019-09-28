@@ -79,7 +79,12 @@ namespace MoviesAdviser.Pages
             var SortBy = ((TextBlock) cb_sortby.SelectedItem).Text;
             var Site = ((TextBlock)cb_site.SelectedItem).Text;
             Test_Conn();
+            //Создаем объект асинхронной задачи, чтобы выполнять загрузку фильмов в другом потоке
             BackgroundWorker bg = new BackgroundWorker();
+            //Так как в асинхронную задачу в качестве параметра можно передать только один объект, то я использую dynamic
+            //Можно было бы обойтись без него, но тогда нужен класс Filters с полями Genre, и т.д.
+            //В объект dynamic можно в любой момент добавлять любые поля. Их тип тоже будет dynamic, но при обращении к ним можно кастовать их к любому другому типу.
+            //Например (int) filters.Year;
             dynamic filters = new ExpandoObject();
             filters.Genre = Genre;
             filters.Country = Country;
@@ -88,6 +93,8 @@ namespace MoviesAdviser.Pages
             filters.Site = Site;
             if (Site.Equals("tvigle.ru"))
             {
+                //DoWork содержит в себе делегаты методов, которые будут выполнены, когда запустится асинхронная задача.
+                //Делегаты добавляются точно так же, как в обработчике события: через +=
                 bg.DoWork += tvigle_work;                
                 //tmpList = hdkinoBrowser.GetMoviesList((string)Genre, (int)Year, (string)Country, SortBy);
             }
@@ -97,13 +104,35 @@ namespace MoviesAdviser.Pages
                 
                // tmpList = tmdb.GetMoviesList((string)Genre, (int)Year, "", SortBy);
             }
+            //Делегаты методов, которые будут выполнен после завершения всех методов DoWork.
             bg.RunWorkerCompleted += Bg_RunWorkerCompleted;
+            //Запуск асинхронной задачи. В нее мы передаем динамический объект filters
             bg.RunWorkerAsync(filters);
         }
 
+        
+
+        private void TMDB_work(object sender, DoWorkEventArgs e)
+        {
+            //В e.Argument лежит объект filters, который передали в RunWorkerAsync
+            dynamic filters = e.Argument;
+            //Обязательно приводим поля filters к нужному типу, потому что они все dynamic
+            List<Movie> movies = tmdb.GetMoviesList((string)filters.Genre, (int)filters.Year, (string)filters.Country, (string)filters.SortBy);
+            //Возвращаемое значение асинхронной задачи. Будет использовано в Bg_RunWorkerCompleted
+            e.Result = movies;
+        }
+        private void tvigle_work(object sender, DoWorkEventArgs e)
+        {
+            //Всё аналогично предыдущему методу
+            dynamic filters = e.Argument;
+            List<Movie> movies = hdkinoBrowser.GetMoviesList((string)filters.Genre, (int)filters.Year, (string)filters.Country, (string)filters.SortBy);
+            e.Result = movies;
+        }
         private void Bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            List<Movie> movies = (List<Movie>) e.Result;
+            //Задача выполнена, проверяем результаты, прячем гифку и т.д.
+            //В e.Result мы положили список загруженных фильмов, нужно его считать и привести к правильному типу
+            List<Movie> movies = (List<Movie>)e.Result;
             if (movies.Count <= 0)
             {
                 tb_hint.Text = "К сожалению по данным критериям фильмов не найдено";
@@ -115,19 +144,6 @@ namespace MoviesAdviser.Pages
             }
             gifLoad.Visibility = Visibility.Hidden;
             lb_movies.Visibility = Visibility.Visible;
-        }
-
-        private void TMDB_work(object sender, DoWorkEventArgs e)
-        {
-            dynamic filters = e.Argument;
-            List<Movie> movies = tmdb.GetMoviesList((string)filters.Genre, (int)filters.Year, (string)filters.Country, (string)filters.SortBy);
-            e.Result = movies;
-        }
-        private void tvigle_work(object sender, DoWorkEventArgs e)
-        {
-            dynamic filters = e.Argument;
-            List<Movie> movies = hdkinoBrowser.GetMoviesList((string)filters.Genre, (int)filters.Year, (string)filters.Country, (string)filters.SortBy);
-            e.Result = movies;
         }
     }
 }
