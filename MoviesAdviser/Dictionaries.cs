@@ -8,8 +8,8 @@ namespace MoviesAdviser
 {
     class Dictionaries
     {
-        //Жанры 2hdkino.vip
-        public static readonly Dictionary<string, int> hdkinoGenres = new Dictionary<string, int>
+        //Жанры tvigle.ru
+        public static readonly Dictionary<string, int> tvigleGenres = new Dictionary<string, int>
         {
             {"Боевики", 4},
             {"Приключения", 14},
@@ -25,8 +25,8 @@ namespace MoviesAdviser
             {"Военные", 5}
         };
 
-        //Cтраны 2hdkino.vip
-        public static readonly Dictionary<string, int> hdkinoCountries = new Dictionary<string, int>
+        //Cтраны tvigle.ru
+        public static readonly Dictionary<string, int> tvigleCountries = new Dictionary<string, int>
         {
             {"Россия",4},
             {"США",27},

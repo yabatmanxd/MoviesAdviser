@@ -25,20 +25,20 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel MinWidth="500" MaxWidth="960" Grid.Row="0" Margin="10" Orientation="Horizontal">
+            <StackPanel MinWidth="500" MaxWidth="960" Grid.Row="0" HorizontalAlignment="Center" Margin="10" Orientation="Horizontal">
+                <ComboBox Name="cb_site" SelectedIndex="0" Margin="0 0 20 0">
+                    <TextBlock>The Movie Database</TextBlock>
+                    <TextBlock>tvigle.ru</TextBlock>
+                </ComboBox>
                 <ComboBox Name="cb_genres" SelectedIndex="0" Margin="0 0 20 0" VerticalAlignment="Bottom">
                 </ComboBox>
-                <ComboBox Name="cb_country" SelectedIndex="0" Margin="0 0 20 0">
+                <ComboBox Name="cb_country" SelectedIndex="0" IsEnabled="True" Margin="0 0 20 0">
                 </ComboBox>
                 <ComboBox Name="cb_year" SelectedIndex="0" Margin="0 0 20 0">
                 </ComboBox>
                 <ComboBox Name="cb_sortby" SelectedIndex="0"  Margin="0 0 20 0">
                     <TextBlock>По рейтингу</TextBlock>
-                    <TextBlock>По количеству комментариев</TextBlock>
-                </ComboBox>
-                <ComboBox Name="cb_site" SelectedIndex="0" Margin="0 0 20 0">
-                    <TextBlock>The Movie Database</TextBlock>
-                    <TextBlock>tvigle.ru</TextBlock>
+                    <TextBlock>По дате добавления</TextBlock>
                 </ComboBox>
                 <Button Name="bt_search" Padding="12 0" Click="Bt_search_Click">Найти</Button>
 

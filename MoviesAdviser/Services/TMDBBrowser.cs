@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -55,10 +56,10 @@ namespace MoviesAdviser.Services
             string res = "";
             foreach(dynamic mvCountry in countries)
             {
-                res += mvCountry.name + ",";
+                res += CultureInfo.CurrentCulture.TextInfo.ToTitleCase(((string)mvCountry.name)) + ", ";
             }
             if(res.Length > 0)
-                res = res.Remove(res.Length - 1);
+                res = res.Remove(res.Length - 2);
             return res;
         }
         private string GetGenres(dynamic movie)
@@ -67,9 +68,9 @@ namespace MoviesAdviser.Services
             string res = "";
             foreach (dynamic mvGenre in genres)
             {
-                res += mvGenre.name + ",";
+                res += CultureInfo.CurrentCulture.TextInfo.ToTitleCase((string)mvGenre.name) + ", ";
             }
-            res = res.Remove(res.Length - 1);
+            res = res.Remove(res.Length - 2);
             return res;
 
         }

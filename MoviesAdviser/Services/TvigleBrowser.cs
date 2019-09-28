@@ -10,16 +10,16 @@ using MoviesAdviser.Models;
 namespace MoviesAdviser.Services
 {
     
-    //Поиск по 2hdkino.vip
-    public class HDKinoBrowser : BrowserInterface
+    //Поиск по 2tvigle.vip
+    public class TvigleBrowser : BrowserInterface
     {
         public List<Movie> GetMoviesList(string genre, int year, string country, string sortMethod)
         {
             var movieList = new List<Movie>();
 
             //string address = Encoding.ASCII.GetString(Convert.FromBase64String("aHR0cHM6Ly93d3cua2lub25ld3MucnUvdG9wMTAwLXRocmlsbGVyLw=="));
-            int idCountry = Dictionaries.hdkinoCountries[country];
-            int idGenre = Dictionaries.hdkinoGenres[genre];
+            int idCountry = Dictionaries.tvigleCountries[country];
+            int idGenre = Dictionaries.tvigleGenres[genre];
             string address = String.Format(@"https://www.tvigle.ru/catalog/filmy/?release_year={0}&category={1}&country={2}&o=",year, idGenre, idCountry);
             string html;
             using (var client = new WebClient())
@@ -65,7 +65,10 @@ namespace MoviesAdviser.Services
 
                 movieList.Add(movieObj);
             }
-
+            if (sortMethod == "По рейтингу")
+            {
+                movieList = movieList.OrderByDescending(x => x.Rating).ToList();
+            }
             return movieList;
         }
 

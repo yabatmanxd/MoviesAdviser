@@ -26,25 +26,27 @@ namespace MoviesAdviser.Pages
     /// </summary>
     public partial class main : Page
     {
-        public HDKinoBrowser hdkinoBrowser;
+        public TvigleBrowser tvigleBrowser;
         public TMDBBrowser tmdb;
-
-        Thread BrowsingThread;
 
         public static List<String> GenresList;
 
         public main()
         {
             InitializeComponent();
-            GenresList = Dictionaries.hdkinoGenres.Select(t=>t.Key).ToList();
+            // необходимо вручную назначит обработчик и вызвать изменение выделения для камбобокса, потому что при назначении в XAML происходит ошибка
+            cb_site.SelectionChanged += Cb_site_SelectionChanged;
+            Cb_site_SelectionChanged(null, null);
+
+            GenresList = Dictionaries.tvigleGenres.Select(t=>t.Key).ToList();
             cb_genres.ItemsSource = GenresList;
-            cb_country.ItemsSource = Dictionaries.hdkinoCountries.Select(t => t.Key).ToList();
+            cb_country.ItemsSource = Dictionaries.tvigleCountries.Select(t => t.Key).ToList();
             for (int i = DateTime.Now.Year; i >= 1930; i--)
             {
                 cb_year.Items.Add(i);
             }
-
-            hdkinoBrowser = new HDKinoBrowser();
+            // создание объектов браузеров
+            tvigleBrowser = new TvigleBrowser();
             tmdb = new TMDBBrowser();
         }
 
@@ -67,12 +69,10 @@ namespace MoviesAdviser.Pages
 
         private void Bt_search_Click(object sender, RoutedEventArgs e)
         {
-            List<Movie> tmpList;
             tb_hint.Text = "";
             lb_movies.Visibility = Visibility.Hidden;
             gifLoad.Visibility = Visibility.Visible;  
 
-            
             var Genre = cb_genres.SelectedItem;
             var Country = cb_country.SelectedItem;
             var Year = cb_year.SelectedItem;
@@ -96,7 +96,7 @@ namespace MoviesAdviser.Pages
                 //DoWork содержит в себе делегаты методов, которые будут выполнены, когда запустится асинхронная задача.
                 //Делегаты добавляются точно так же, как в обработчике события: через +=
                 bg.DoWork += tvigle_work;                
-                //tmpList = hdkinoBrowser.GetMoviesList((string)Genre, (int)Year, (string)Country, SortBy);
+                //tmpList = tvigleBrowser.GetMoviesList((string)Genre, (int)Year, (string)Country, SortBy);
             }
             else
             {
@@ -125,7 +125,7 @@ namespace MoviesAdviser.Pages
         {
             //Всё аналогично предыдущему методу
             dynamic filters = e.Argument;
-            List<Movie> movies = hdkinoBrowser.GetMoviesList((string)filters.Genre, (int)filters.Year, (string)filters.Country, (string)filters.SortBy);
+            List<Movie> movies = tvigleBrowser.GetMoviesList((string)filters.Genre, (int)filters.Year, (string)filters.Country, (string)filters.SortBy);
             e.Result = movies;
         }
         private void Bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -144,6 +144,20 @@ namespace MoviesAdviser.Pages
             }
             gifLoad.Visibility = Visibility.Hidden;
             lb_movies.Visibility = Visibility.Visible;
+        }
+
+        private void Cb_site_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // если выбрана TMDB отключить выбор страны, т.к. база не имеет возможности поиска по стране
+            var Site = ((TextBlock)cb_site.SelectedItem).Text;
+            if (Site.Equals("tvigle.ru"))
+            {
+                cb_country.IsEnabled = true;
+            }
+            else
+            {
+                cb_country.IsEnabled = false;
+            }
         }
     }
 }

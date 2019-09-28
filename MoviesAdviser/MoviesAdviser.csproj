@@ -82,7 +82,7 @@
     </Compile>
     <Compile Include="Services\Analyzer.cs" />
     <Compile Include="Services\ConnectionTester.cs" />
-    <Compile Include="Services\HDKinoBrowser.cs" />
+    <Compile Include="Services\TvigleBrowser.cs" />
     <Compile Include="Services\TMDBBrowser.cs" />
     <Compile Include="Services\JSONProcessor.cs" />
     <Page Include="MainWindow.xaml">
