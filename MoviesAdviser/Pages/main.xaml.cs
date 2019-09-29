@@ -116,8 +116,8 @@ namespace MoviesAdviser.Pages
         {
             //В e.Argument лежит объект filters, который передали в RunWorkerAsync
             dynamic filters = e.Argument;
-            //Обязательно приводим поля filters к нужному типу, потому что они все dynamic
-            List<Movie> movies = tmdb.GetMoviesList((string)filters.Genre, (int)filters.Year, (string)filters.Country, (string)filters.SortBy);
+
+            List<Movie> movies = tmdb.GetMoviesList((string)filters.Genre, (int)filters.Year, (string)filters.Country, (string)filters.SortBy);           
             //Возвращаемое значение асинхронной задачи. Будет использовано в Bg_RunWorkerCompleted
             e.Result = movies;
         }

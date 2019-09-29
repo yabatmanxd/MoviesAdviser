@@ -23,7 +23,7 @@ namespace MoviesAdviser.Services
        
         public List<Movie> GetMoviesList(string genre, int year, string country, string sortMethod)
         {
-            List<Movie> movies = new List<Movie>();
+            List<Movie> movies = new List<Movie>();            
             string URL = "https://api.themoviedb.org/3/discover/movie?api_key=b41296940c36d7ed60f4f56e9d17bf65&language=ru";
             //Установка параметров
             string urlParams = "";
@@ -32,21 +32,27 @@ namespace MoviesAdviser.Services
             urlParams += "&with_genres=" + genreID;            
             urlParams += "&sort_by=" + sort + ".desc";
             urlParams += "&year=" + year;
-
-            //Создание запроса
-            string json = GetResponse(URL + urlParams, "GET");
-            dynamic data = JsonConvert.DeserializeObject(json);
-            dynamic results = data.results;
-            Console.WriteLine(results[0]);
-            foreach (dynamic res in results)
-            {               
-                DateTime date = Convert.ToDateTime(res.release_date);
-                dynamic movie = JsonConvert.DeserializeObject(GetMovieInfo(res.id));
-                Movie movieObj = new Movie((string)res.title, GetCountries(movie), date.Year, GetGenres(movie));
-                movieObj.Rating = (int)movie.vote_average;
-                movies.Add(movieObj);
-            }
-
+            urlParams += "&page=";
+            for (int i = 1; i <= 2; i++)
+            {
+                urlParams += i;
+                //Создание запроса
+                string json = GetResponse(URL + urlParams, "GET");
+                dynamic data = JsonConvert.DeserializeObject(json);
+                dynamic results = data.results;
+                foreach (dynamic res in results)
+                {
+                    DateTime date = Convert.ToDateTime(res.release_date);
+                    if (date.Year == year)
+                    {
+                        dynamic movie = JsonConvert.DeserializeObject(GetMovieInfo(res.id));
+                        Movie movieObj = new Movie((string)res.title, GetCountries(movie), date.Year, GetGenres(movie));
+                        movieObj.Rating = (int)movie.vote_average;
+                        movies.Add(movieObj);
+                    }
+                }
+                urlParams = urlParams.Remove(urlParams.Length - 1);
+            }                       
             return movies;
         }
 
@@ -86,7 +92,14 @@ namespace MoviesAdviser.Services
             WebRequest request = WebRequest.Create(url);
             request.Method = method;
             HttpWebResponse response = null;
-            response = (HttpWebResponse)request.GetResponse();
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch(Exception e)
+            {
+                return GetResponse(url, method);
+            }
             string json = null;
             using (Stream stream = response.GetResponseStream())
             {

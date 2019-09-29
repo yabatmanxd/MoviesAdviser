@@ -71,7 +71,7 @@ namespace MoviesAdviser
         public static readonly Dictionary<string, string> TMDBSortMethods = new Dictionary<string, string>()
         {
             { "По рейтингу","vote_average" },
-            { "По количеству комментариев","popularity" }
+            { "По дате добавления","release_date" }
         };
     }
 }
