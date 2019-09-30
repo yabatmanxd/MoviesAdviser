@@ -45,10 +45,23 @@
             </StackPanel>
 
 
-            <ListBox Name="lb_movies" Grid.Row="1"  HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" Background="{x:Null}" VirtualizingPanel.ScrollUnit="Pixel">
+            <ListBox Name="lb_movies" Grid.Row="1"  HorizontalContentAlignment="Stretch" BorderBrush="Transparent" Background="Transparent" VirtualizingPanel.ScrollUnit="Pixel">
+                <ListBox.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                </ListBox.Resources>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="#285473"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border Padding="10" MinWidth="500" MaxWidth="960"   BorderBrush="#FFdfe2e8" BorderThickness="0,0,0,1">
+                        <Border Padding="10" MinWidth="500" MaxWidth="960" BorderBrush="#FFdfe2e8" BorderThickness="0,0,0,1" Name="border">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -75,8 +88,6 @@
                                 </StackPanel>
                             </Grid>
                         </Border>
-
-
                     </DataTemplate>
                 </ListBox.ItemTemplate>
 

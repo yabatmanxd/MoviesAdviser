@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -26,7 +27,16 @@ namespace MoviesAdviser.Services
             {
                 client.Headers.Add(HttpRequestHeader.UserAgent, ".NET Application");
                 client.Encoding = Encoding.UTF8;
-                html = client.DownloadString(address);
+                try
+                {
+                    html = client.DownloadString(address);
+                }
+                catch
+                {
+                    MessageBox.Show("К сожалению, сервер в данный момент недоступен. Попробуйте позже.","Movies Adviser - Error",MessageBoxButton.OK,MessageBoxImage.Error);
+                    return movieList;
+                }
+                
             }
 
             // AngleSharp
@@ -39,6 +49,8 @@ namespace MoviesAdviser.Services
                 var movieObj = new Movie();
 
                 movieObj.Title = item.QuerySelectorAll("div.product-list__item_name").First().TextContent;
+
+                movieObj.Poster = (item.QuerySelectorAll("img").First().GetAttribute("src")).Substring(2); // в ссылке сайта на картинку вначале 2 слеша, их нужно обрезать
 
                 string tempInfo = item.QuerySelectorAll("div.product-list__item_info").First().TextContent;
                 tempInfo = tempInfo.Replace("\n", "");

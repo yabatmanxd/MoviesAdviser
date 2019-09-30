@@ -135,7 +135,7 @@ namespace MoviesAdviser.Pages
             List<Movie> movies = (List<Movie>)e.Result;
             if (movies.Count <= 0)
             {
-                tb_hint.Text = "К сожалению по данным критериям фильмов не найдено";
+                tb_hint.Text = "К сожалению, по данным критериям фильмов не найдено";
                 lb_movies.ItemsSource = null;
             }
             else
