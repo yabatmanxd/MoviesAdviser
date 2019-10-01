@@ -26,6 +26,11 @@ namespace MoviesAdviser.Models
 
         public string Genre { get; set; }
 
+        // ссылка на страницу с фильмом (из неё придётся вытягивать описание)
+        public string Link { get; set; }
+
+        public string Description { get; set; }
+
         //Список комментариев и рецензий к фильму (в конструкторе не инициализируется, будет заполняться браузерами сайтов
         public List<Comment> comments { get; set; }
 

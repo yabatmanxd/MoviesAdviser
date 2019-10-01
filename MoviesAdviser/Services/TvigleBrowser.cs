@@ -21,7 +21,8 @@ namespace MoviesAdviser.Services
             //string address = Encoding.ASCII.GetString(Convert.FromBase64String("aHR0cHM6Ly93d3cua2lub25ld3MucnUvdG9wMTAwLXRocmlsbGVyLw=="));
             int idCountry = Dictionaries.tvigleCountries[country];
             int idGenre = Dictionaries.tvigleGenres[genre];
-            string address = String.Format(@"https://www.tvigle.ru/catalog/filmy/?release_year={0}&category={1}&country={2}&o=",year, idGenre, idCountry);
+            string siteLink = @"https://www.tvigle.ru";
+            string address = String.Format(siteLink+@"/catalog/filmy/?release_year={0}&category={1}&country={2}&o=",year, idGenre, idCountry);
             string html;
             using (var client = new WebClient())
             {
@@ -36,13 +37,12 @@ namespace MoviesAdviser.Services
                     MessageBox.Show("К сожалению, сервер в данный момент недоступен. Попробуйте позже.","Movies Adviser - Error",MessageBoxButton.OK,MessageBoxImage.Error);
                     return movieList;
                 }
-                
             }
 
             // AngleSharp
             var htmlDoc = new HtmlParser().ParseDocument(html);
 
-            var items = htmlDoc.QuerySelectorAll("a").Where(item => item.ClassName != null && item.ClassName.Contains("product-list__item"));
+            var items = htmlDoc.QuerySelectorAll("a.product-list__item");
 
             foreach (var item in items)
             {
@@ -51,6 +51,8 @@ namespace MoviesAdviser.Services
                 movieObj.Title = item.QuerySelectorAll("div.product-list__item_name").First().TextContent;
 
                 movieObj.Poster = (item.QuerySelectorAll("img").First().GetAttribute("src")).Substring(2); // в ссылке сайта на картинку вначале 2 слеша, их нужно обрезать
+
+                movieObj.Link = siteLink + item.GetAttribute("href");
 
                 string tempInfo = item.QuerySelectorAll("div.product-list__item_info").First().TextContent;
                 tempInfo = tempInfo.Replace("\n", "");

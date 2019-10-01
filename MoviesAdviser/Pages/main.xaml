@@ -45,7 +45,7 @@
             </StackPanel>
 
 
-            <ListBox Name="lb_movies" Grid.Row="1"  HorizontalContentAlignment="Stretch" BorderBrush="Transparent" Background="Transparent" VirtualizingPanel.ScrollUnit="Pixel">
+            <ListBox Name="lb_movies" Grid.Row="1"  HorizontalContentAlignment="Stretch" BorderBrush="Transparent" Background="Transparent" VirtualizingPanel.ScrollUnit="Pixel" SelectionChanged="Lb_movies_SelectionChanged">
                 <ListBox.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
                 </ListBox.Resources>

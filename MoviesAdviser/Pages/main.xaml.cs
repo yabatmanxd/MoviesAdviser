@@ -159,5 +159,13 @@ namespace MoviesAdviser.Pages
                 cb_country.IsEnabled = false;
             }
         }
+
+        private void Lb_movies_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var a = NavigationService.GetNavigationService(this);
+            var b = new filmInfo((Movie)lb_movies.SelectedItem, "tvigle");
+            //a.Navigate((Uri)(new Uri("Pages/filmInfo.xaml", UriKind.Relative)));
+            a.Navigate(b);
+        }
     }
 }
