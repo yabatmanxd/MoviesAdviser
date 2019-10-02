@@ -50,7 +50,7 @@ namespace MoviesAdviser.Services
 
                 movieObj.Title = item.QuerySelectorAll("div.product-list__item_name").First().TextContent;
 
-                movieObj.Poster = (item.QuerySelectorAll("img").First().GetAttribute("src")).Substring(2); // в ссылке сайта на картинку вначале 2 слеша, их нужно обрезать
+                movieObj.Poster = "https://" + (item.QuerySelectorAll("img").First().GetAttribute("src")).Substring(2); // в ссылке сайта на картинку вначале 2 слеша, их нужно обрезать
 
                 movieObj.Link = siteLink + item.GetAttribute("href");
 
@@ -60,8 +60,6 @@ namespace MoviesAdviser.Services
                 movieObj.Country = tempInfo.Substring(0, tempInfo.LastIndexOf(','));
                 string yearStr = tempInfo.Substring(tempInfo.LastIndexOf(',')+1);
                 movieObj.Year = Int32.Parse(yearStr);
-
-                movieObj.Poster = "aaa";
 
                 try
                 {

@@ -23,20 +23,21 @@ namespace MoviesAdviser.Pages
     /// </summary>
     public partial class filmInfo : Page
     {
+        public Movie movieInfo { get; set; }
         public filmInfo(Movie movieObj, string type = "tmdb")
         {
             InitializeComponent();
-
+            movieInfo = movieObj;
             switch (type)
             {
                 case "tmdb": break;
                 case "tvigle":
-                    movieObj = parseMoreInfo(movieObj);
+                    movieInfo = parseMoreInfo(movieInfo);
                     break;
             }
-
-            tb_header.Text = movieObj.Title;
-            tb_description.Text = movieObj.Description;
+            this.DataContext = movieInfo;
+            //tb_header.Text = movieObj.Title;
+            //tb_description.Text = movieObj.Description;
         }
 
         private Movie parseMoreInfo(Movie mvObj)

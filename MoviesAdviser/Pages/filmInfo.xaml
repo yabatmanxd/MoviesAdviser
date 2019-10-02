@@ -9,8 +9,9 @@
 
     <Grid>
         <StackPanel Margin="20" HorizontalAlignment="Center" MinWidth="500" MaxWidth="960">
-            <TextBlock FontSize="16" FontWeight="Bold" Name="tb_header">Название</TextBlock>
-            <TextBlock FontSize="14" MaxWidth="920" Name="tb_description">Описание</TextBlock>
+            <TextBlock FontSize="16" FontWeight="Bold" Name="tb_header" Text="{Binding Path=Title,IsAsync=True}"></TextBlock>
+            <TextBlock FontSize="14" MaxWidth="920" Name="tb_description" Text="{Binding Path=Description,IsAsync=True}"></TextBlock>
+            <Image MinHeight="400" MinWidth="400" Source="{Binding Path=Poster,IsAsync=True}" />
         </StackPanel>
     </Grid>
 </Page>
