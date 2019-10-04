@@ -7,33 +7,41 @@
       mc:Ignorable="d" 
       Title="filmInfo">
 
-    <Grid MinWidth="500" MaxWidth="900" Margin="20" VerticalAlignment="Center" HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto">
+    <Grid Width="900" Margin="20" >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="225" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="277"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Viewbox Margin="10" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
+        <Viewbox Width="205" Margin="10" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
+            <Viewbox.Effect>
+                <DropShadowEffect Color="Black" Direction="310" ShadowDepth="8" Opacity="0.4"/>
+            </Viewbox.Effect>
             <Image Source="{Binding Path=Poster,IsAsync=True}" />
         </Viewbox>
-        <TextBlock Margin="0 10 0 10" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" FontSize="20" FontWeight="Bold" Name="tb_header" Text="{Binding Path=Title,IsAsync=True}"></TextBlock>
-        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <TextBlock FontSize="14">Год:</TextBlock>
-            <TextBlock FontSize="14">Страна:</TextBlock>
-            <TextBlock FontSize="14">Жанр:</TextBlock>
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <TextBlock FontSize="14" Text="{Binding Path=Year,IsAsync=True}"></TextBlock>
-            <TextBlock FontSize="14" Text="{Binding Path=Country,IsAsync=True}"></TextBlock>
-            <TextBlock FontSize="14" Text="{Binding Path=Genre,IsAsync=True}"></TextBlock>
-        </StackPanel>
-        <TextBlock Margin="10" Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Grid.ColumnSpan="3" FontSize="14" MaxWidth="920" Name="tb_description" Text="{Binding Path=Description,IsAsync=True}" ScrollViewer.CanContentScroll="True"></TextBlock>
-
+        <TextBlock Margin="10" Grid.Column="1" Grid.Row="0" FontSize="20" FontWeight="Bold" Name="tb_header" Text="{Binding Path=Title,IsAsync=True}"></TextBlock>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" FontSize="14" Margin="10 5 10 5">Год:</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" FontSize="14" Text="{Binding Path=Year,IsAsync=True}" Margin="10 5 10 5"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0" FontSize="14" Margin="10 5 10 5">Страна:</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" FontSize="14" Text="{Binding Path=Country,IsAsync=True}"  Margin="10 5 10 5"></TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0" FontSize="14" Margin="10 5 10 5">Жанр:</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" FontSize="14" Text="{Binding Path=Genre,IsAsync=True}" Margin="10 5 10 5"></TextBlock>
+        </Grid>
+        <TextBlock Margin="10" Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Grid.ColumnSpan="2" FontSize="14" MaxWidth="920" Name="tb_description" Text="{Binding Path=Description,IsAsync=True}" ScrollViewer.CanContentScroll="True"></TextBlock>
 
     </Grid>
 </Page>

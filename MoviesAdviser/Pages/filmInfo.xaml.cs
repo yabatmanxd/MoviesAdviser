@@ -59,10 +59,10 @@ namespace MoviesAdviser.Pages
                 }
             }
             var htmlObj = new HtmlParser().ParseDocument(html);
-            var divs = htmlObj.QuerySelectorAll("div").Where(x => x.GetAttribute("itemprop") == "description");
-            mvObj.Description = divs.First().ChildNodes[1].TextContent;
-
-
+            var div = htmlObj.QuerySelectorAll("div").Where(x => x.GetAttribute("itemprop") == "description").First();
+            mvObj.Description = "";
+            string t = div.InnerHtml.Replace("<p>","").Replace("</p>","\n").Replace("\n                                        \n                                        ","").Trim();
+            mvObj.Description = t;
             return mvObj;
         }
     }
