@@ -34,9 +34,6 @@ namespace MoviesAdviser.Pages
         public main()
         {
             InitializeComponent();
-            // необходимо вручную назначит обработчик и вызвать изменение выделения для камбобокса, потому что при назначении в XAML происходит ошибка
-            cb_site.SelectionChanged += Cb_site_SelectionChanged;
-            Cb_site_SelectionChanged(null, null);
 
             GenresList = Dictionaries.tvigleGenres.Select(t=>t.Key).ToList();
             cb_genres.ItemsSource = GenresList;
@@ -60,10 +57,8 @@ namespace MoviesAdviser.Pages
         {
             if (!ConnectionTester.TestConnection())
             {
-                //new NoConnectionWindow().Show();
                 var a = NavigationService.GetNavigationService(this);
                 a.Navigate((Uri)(new Uri("Pages/waitConnection.xaml", UriKind.Relative)));
-
             }
         }
 
@@ -160,12 +155,13 @@ namespace MoviesAdviser.Pages
             }
         }
 
-        private void Lb_movies_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Lb_movies_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var a = NavigationService.GetNavigationService(this);
-            var b = new filmInfo((Movie)lb_movies.SelectedItem, "tvigle");
-            //a.Navigate((Uri)(new Uri("Pages/filmInfo.xaml", UriKind.Relative)));
-            a.Navigate(b);
+            var navService = NavigationService.GetNavigationService(this);
+            var filmObj = (Movie)lb_movies.SelectedItem;
+            var filmPage = new filmInfo(filmObj, "tvigle");
+            filmPage.Title = filmObj.Title + " - Информация о фильме";
+            navService.Navigate(filmPage);
         }
     }
 }

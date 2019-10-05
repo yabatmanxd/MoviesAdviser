@@ -6,21 +6,15 @@
       xmlns:local="clr-namespace:MoviesAdviser.Pages"
       xmlns:gif="http://wpfanimatedgif.codeplex.com"
       mc:Ignorable="d" 
-      Title="main" Loaded="Page_Loaded" >
+      Title="Поиск фильмов - Главная страница" Loaded="Page_Loaded" KeepAlive="True">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
-            <MenuItem Header="Избранное"></MenuItem>
-        </Menu>
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible">
+        
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible">
             <TextBlock Name="tb_hint" FontSize="14">Установите фильтры и нажмите кнопку "Найти"</TextBlock>
             <Image gif:ImageBehavior.AnimatedSource="../Images/loading.gif" Name="gifLoad" Width="100" Height="100" />
         </StackPanel>
-        <Grid Grid.Row="1">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
@@ -45,7 +39,7 @@
             </StackPanel>
 
 
-            <ListBox Name="lb_movies" Grid.Row="1"  HorizontalContentAlignment="Stretch" BorderBrush="Transparent" Background="Transparent" VirtualizingPanel.ScrollUnit="Pixel" SelectionChanged="Lb_movies_SelectionChanged">
+            <ListBox Name="lb_movies" Grid.Row="1"  HorizontalContentAlignment="Stretch" BorderBrush="Transparent" Background="Transparent" VirtualizingPanel.ScrollUnit="Pixel"  MouseDoubleClick="Lb_movies_MouseDoubleClick" >
                 <ListBox.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
                 </ListBox.Resources>
