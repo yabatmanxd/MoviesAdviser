@@ -22,7 +22,22 @@ namespace MoviesAdviser.Services
             int idCountry = Dictionaries.tvigleCountries[country];
             int idGenre = Dictionaries.tvigleGenres[genre];
             string siteLink = @"https://www.tvigle.ru";
-            string address = String.Format(siteLink+@"/catalog/filmy/?release_year={0}&category={1}&country={2}&o=",year, idGenre, idCountry);
+            string yearParamStr;
+            if (year >= 2010 && year <= 2015)
+                yearParamStr = "2010-2015";
+            else
+                if (year >= 2000 && year <= 2010)
+                    yearParamStr = "2000-2010";
+                else
+                    if (year >= 1990 && year <= 2000)
+                        yearParamStr = "1990-2000";
+                    else
+                        if (year >= 1980 && year <= 1990)
+                            yearParamStr = "1980-1990";
+                        else
+                            yearParamStr = "1980";
+
+            string address = String.Format(siteLink+@"/catalog/filmy/?release_year={0}&category={1}&country={2}&o=", yearParamStr, idGenre, idCountry);
             string html;
             using (var client = new WebClient())
             {
@@ -48,34 +63,37 @@ namespace MoviesAdviser.Services
             {
                 var movieObj = new Movie();
 
-                movieObj.Title = item.QuerySelectorAll("div.product-list__item_name").First().TextContent;
-
-                movieObj.Poster = "https://" + (item.QuerySelectorAll("img").First().GetAttribute("src")).Substring(2); // в ссылке сайта на картинку вначале 2 слеша, их нужно обрезать
-
-                movieObj.Link = siteLink + item.GetAttribute("href");
-
                 string tempInfo = item.QuerySelectorAll("div.product-list__item_info").First().TextContent;
                 tempInfo = tempInfo.Replace("\n", "");
                 tempInfo = tempInfo.Trim();
                 movieObj.Country = tempInfo.Substring(0, tempInfo.LastIndexOf(','));
-                string yearStr = tempInfo.Substring(tempInfo.LastIndexOf(',')+1);
+                string yearStr = tempInfo.Substring(tempInfo.LastIndexOf(',') + 1);
                 movieObj.Year = Int32.Parse(yearStr);
 
-                try
+                if (movieObj.Year == year)
                 {
-                    string rateImdb = item.QuerySelectorAll("span.meta-rate__imdb").First().LastChild.TextContent.Replace('.', ',');
-                    string rateKinopoisk = item.QuerySelectorAll("span.meta-rate__kinopoisk").First().LastChild.TextContent.Replace('.', ',');
-                    movieObj.Rating = Math.Round((Double.Parse(rateImdb) + Double.Parse(rateKinopoisk)) / 2, 2);
-                } catch
-                {
-                    movieObj.Rating = 0;
+                    movieObj.Title = item.QuerySelectorAll("div.product-list__item_name").First().TextContent;
+                    movieObj.Poster = "https://" + (item.QuerySelectorAll("img").First().GetAttribute("src")).Substring(2); // в ссылке сайта на картинку вначале 2 слеша, их нужно обрезать
+                    movieObj.Link = siteLink + item.GetAttribute("href");
+
+                    try
+                    {
+                        string rateImdb = item.QuerySelectorAll("span.meta-rate__imdb").First().LastChild.TextContent.Replace('.', ',');
+                        string rateKinopoisk = item.QuerySelectorAll("span.meta-rate__kinopoisk").First().LastChild.TextContent.Replace('.', ',');
+                        movieObj.Rating = Math.Round((Double.Parse(rateImdb) + Double.Parse(rateKinopoisk)) / 2, 2);
+                    }
+                    catch
+                    {
+                        movieObj.Rating = 0;
+                    }
+
+                    var listGenres = item.QuerySelectorAll("div.meta-labels").First().ChildNodes.Where(t => t.NodeName == "SPAN").Select(t => t.TextContent);
+                    movieObj.Genre = String.Join(", ", listGenres);
+
+                    movieList.Add(movieObj);
                 }
+
                 
-
-                var listGenres = item.QuerySelectorAll("div.meta-labels").First().ChildNodes.Where(t=>t.NodeName == "SPAN").Select(t=>t.TextContent);
-                movieObj.Genre = String.Join(", ", listGenres);
-
-                movieList.Add(movieObj);
             }
             if (sortMethod == "По рейтингу")
             {
