@@ -59,7 +59,7 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0">
                                     <TextBlock FontWeight="Bold" Text="{Binding Path=Title}"/>
@@ -76,9 +76,24 @@
                                         <TextBlock Margin="5 0 0 0" Text="{Binding Path=Year}"/>
                                     </StackPanel>
                                 </StackPanel>
-                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBlock>Рейтинг:</TextBlock>
-                                    <TextBlock FontSize="20" Foreground="Blue" Text="{Binding Path=Rating}"/>
+                                <StackPanel Grid.Column="1" MinWidth="50" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                                    <TextBlock Padding="5 2 5 2" FontSize="20" TextAlignment="Center" Foreground="White" Text="{Binding Path=Rating}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=getLevelRating}" Value="0">
+                                                        <Setter Property="Background" Value="Red" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=getLevelRating}" Value="1">
+                                                        <Setter Property="Background" Value="Orange" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=getLevelRating}" Value="2">
+                                                        <Setter Property="Background" Value="Green" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
                                 </StackPanel>
                             </Grid>
                         </Border>

@@ -54,6 +54,31 @@ namespace MoviesAdviser.Models
             Genre = genre;
         }
 
+        public int getLevelRating
+        {
+            get
+            {
+                if (this.Rating < 4)
+                {
+                    return 0;
+                }  
+                else
+                {
+                    if (this.Rating >= 4 && this.Rating < 7.5)
+                    {
+                        return 1;
+                    }    
+                    else
+                    {
+                        if (this.Rating >= 7.5)
+                            return 2;
+                        else
+                            return 54;
+                    }
+                }
+            }
+        }
+
         //Вложенный класс комментария к фильму
         public class Comment
         {

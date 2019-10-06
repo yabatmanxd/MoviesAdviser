@@ -35,6 +35,9 @@ namespace MoviesAdviser.Pages
         {
             InitializeComponent();
 
+            cb_site.SelectionChanged += Cb_site_SelectionChanged;
+            Cb_site_SelectionChanged(null, null);
+
             GenresList = Dictionaries.tvigleGenres.Select(t=>t.Key).ToList();
             cb_genres.ItemsSource = GenresList;
             cb_country.ItemsSource = Dictionaries.tvigleCountries.Select(t => t.Key).ToList();

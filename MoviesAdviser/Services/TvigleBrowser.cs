@@ -11,7 +11,7 @@ using MoviesAdviser.Models;
 namespace MoviesAdviser.Services
 {
     
-    //Поиск по 2tvigle.vip
+    //Поиск по tvigle.vip
     public class TvigleBrowser : BrowserInterface
     {
         public List<Movie> GetMoviesList(string genre, int year, string country, string sortMethod)
