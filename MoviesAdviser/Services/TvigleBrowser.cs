@@ -10,7 +10,7 @@ using MoviesAdviser.Models;
 
 namespace MoviesAdviser.Services
 {
-    
+
     //Поиск по tvigle.vip
     public class TvigleBrowser : BrowserInterface
     {
@@ -27,17 +27,20 @@ namespace MoviesAdviser.Services
                 yearParamStr = "2010-2015";
             else
                 if (year >= 2000 && year <= 2010)
-                    yearParamStr = "2000-2010";
-                else
+                yearParamStr = "2000-2010";
+            else
                     if (year >= 1990 && year <= 2000)
-                        yearParamStr = "1990-2000";
-                    else
+                yearParamStr = "1990-2000";
+            else
                         if (year >= 1980 && year <= 1990)
-                            yearParamStr = "1980-1990";
-                        else
-                            yearParamStr = "1980";
+                yearParamStr = "1980-1990";
+            else
+                            if (year > 2015)
+                yearParamStr = year.ToString();
+            else
+                yearParamStr = "1980";
 
-            string address = String.Format(siteLink+@"/catalog/filmy/?release_year={0}&category={1}&country={2}&o=", yearParamStr, idGenre, idCountry);
+            string address = String.Format(siteLink + @"/catalog/filmy/?release_year={0}&category={1}&country={2}&o=", yearParamStr, idGenre, idCountry);
             string html;
             using (var client = new WebClient())
             {
@@ -49,7 +52,7 @@ namespace MoviesAdviser.Services
                 }
                 catch
                 {
-                    MessageBox.Show("К сожалению, сервер в данный момент недоступен. Попробуйте позже.","Movies Adviser - Error",MessageBoxButton.OK,MessageBoxImage.Error);
+                    MessageBox.Show("К сожалению, сервер в данный момент недоступен. Попробуйте позже.", "Movies Adviser - Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return movieList;
                 }
             }
@@ -93,7 +96,7 @@ namespace MoviesAdviser.Services
                     movieList.Add(movieObj);
                 }
 
-                
+
             }
             if (sortMethod == "По рейтингу")
             {
@@ -107,6 +110,6 @@ namespace MoviesAdviser.Services
             throw new NotImplementedException();
         }
 
-        
+
     }
 }
