@@ -110,7 +110,7 @@ namespace MoviesAdviser.Services
             throw new NotImplementedException();
         }
 
-        public static Movie parseMoreInfo(Movie mvObj)
+        public static Movie ParseMoreInfo(Movie mvObj)
         {
             string address = mvObj.Link;
             string html;

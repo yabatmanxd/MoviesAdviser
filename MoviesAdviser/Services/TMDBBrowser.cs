@@ -38,7 +38,7 @@ namespace MoviesAdviser.Services
                 urlParams += i;
                 //Создание запроса
                 string json = GetResponse(URL + urlParams, "GET");
-                dynamic data = JsonConvert.DeserializeObject(json);
+                dynamic data = JsonConvert.DeserializeObject(json);               
                 dynamic results = data.results;
                 foreach (dynamic res in results)
                 {
@@ -46,8 +46,11 @@ namespace MoviesAdviser.Services
                     if (date.Year == year)
                     {
                         dynamic movie = JsonConvert.DeserializeObject(GetMovieInfo(res.id));
+                        Console.WriteLine(GetMovieInfo(res.id));
                         Movie movieObj = new Movie((string)res.title, GetCountries(movie), date.Year, GetGenres(movie));
                         movieObj.Rating = (int)movie.vote_average;
+                        movieObj.Description = (string)movie.overview;                        
+                        movieObj.Poster = "http://image.tmdb.org/t/p/w185/"+(string)movie.poster_path;
                         movies.Add(movieObj);
                     }
                 }
@@ -109,5 +112,6 @@ namespace MoviesAdviser.Services
             }
             return json;
         }
+        
     }
 }

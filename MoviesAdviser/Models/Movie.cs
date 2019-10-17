@@ -70,10 +70,7 @@ namespace MoviesAdviser.Models
                     }    
                     else
                     {
-                        if (this.Rating >= 7.5)
-                            return 2;
-                        else
-                            return 54;
+                        return 2;
                     }
                 }
             }

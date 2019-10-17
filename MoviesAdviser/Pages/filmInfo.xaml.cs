@@ -31,9 +31,10 @@ namespace MoviesAdviser.Pages
             movieInfo = movieObj;
             switch (type)
             {
-                case "tmdb": break;
-                case "tvigle":
-                    movieInfo = TvigleBrowser.parseMoreInfo(movieInfo);
+                case "The Movie Database":                  
+                    break;
+                case "tvigle.ru":
+                    movieInfo = TvigleBrowser.ParseMoreInfo(movieInfo);
                     break;
             }
             this.DataContext = movieInfo;

@@ -162,7 +162,7 @@ namespace MoviesAdviser.Pages
         {
             var navService = NavigationService.GetNavigationService(this);
             var filmObj = (Movie)lb_movies.SelectedItem;
-            var filmPage = new filmInfo(filmObj, "tvigle");
+            var filmPage = new filmInfo(filmObj,((TextBlock) cb_site.SelectedItem).Text);
             filmPage.Title = filmObj.Title + " - Информация о фильме";
             navService.Navigate(filmPage);
         }
