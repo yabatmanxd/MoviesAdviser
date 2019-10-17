@@ -12,7 +12,7 @@ namespace MoviesAdviser.Models
         //Название
         public string Title { get; set; }
 
-        //Постер фильма - картинка. Как её хранить - пока неизвестно. Побудет string
+        //Постер фильма - картинка
         public string Poster { get; set; } 
 
         //Страна

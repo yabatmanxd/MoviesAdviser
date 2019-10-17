@@ -110,6 +110,30 @@ namespace MoviesAdviser.Services
             throw new NotImplementedException();
         }
 
-
+        public static Movie parseMoreInfo(Movie mvObj)
+        {
+            string address = mvObj.Link;
+            string html;
+            using (var client = new WebClient())
+            {
+                client.Headers.Add(HttpRequestHeader.UserAgent, ".NET Application");
+                client.Encoding = Encoding.UTF8;
+                try
+                {
+                    html = client.DownloadString(address);
+                }
+                catch
+                {
+                    MessageBox.Show("К сожалению, сервер в данный момент недоступен. Попробуйте позже.", "Movies Adviser - Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return mvObj;
+                }
+            }
+            var htmlObj = new HtmlParser().ParseDocument(html);
+            var div = htmlObj.QuerySelectorAll("div").Where(x => x.GetAttribute("itemprop") == "description").First();
+            mvObj.Description = "";
+            string t = div.InnerHtml.Replace("<p>", "").Replace("</p>", "\n").Replace("\n                                        \n                                        ", "").Trim();
+            mvObj.Description = t;
+            return mvObj;
+        }
     }
 }
