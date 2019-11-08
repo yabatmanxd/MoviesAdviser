@@ -31,17 +31,50 @@ namespace MoviesAdviser.Pages
             movieInfo = movieObj;
             switch (type)
             {
-                case "The Movie Database":                  
+                case "The Movie Database":                    
                     break;
                 case "tvigle.ru":
-                    movieInfo = TvigleBrowser.ParseMoreInfo(movieInfo);
-                    break;
+                    movieInfo = TvigleBrowser.ParseMoreInfo(movieInfo);                    
+                    break;                
             }
             this.DataContext = movieInfo;
+            CheckFavorite();
             //tb_header.Text = movieObj.Title;
             //tb_description.Text = movieObj.Description;
         }
 
-        
+        private void DeleteFav(object sender, RoutedEventArgs e)
+        {
+            JSONProcessor.DeleteFromFavorites(movieInfo);
+            setBtnFavToAdd();
+        }
+
+        private void AddFav_Click(object sender, RoutedEventArgs e)
+        {
+            JSONProcessor.AddToFavorites(movieInfo);
+            setBtnFavToDelete();
+        }
+        private void CheckFavorite()
+        {
+            if (JSONProcessor.CheckFavorite(movieInfo))
+            {
+                setBtnFavToDelete();
+            }
+            else
+            {
+                setBtnFavToAdd();
+            }
+        }
+
+        private void setBtnFavToAdd()
+        {
+            AddFav.Content = "Добавить в избранное";
+            AddFav.Click += AddFav_Click;
+        }
+        private void setBtnFavToDelete()
+        {
+            AddFav.Content = "Удалить из избранного";
+            AddFav.Click += DeleteFav;
+        }
     }
 }

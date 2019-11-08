@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MoviesAdviser.Pages;
 
 namespace MoviesAdviser
 {
@@ -30,5 +31,9 @@ namespace MoviesAdviser
             
         }
 
+        private void Favs_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.Navigate(new Uri("Pages/favorites.xaml", UriKind.Relative));           
+        }
     }
 }

@@ -33,7 +33,8 @@ namespace MoviesAdviser.Services
             urlParams += "&sort_by=" + sort + ".desc";
             urlParams += "&year=" + year;
             urlParams += "&page=";
-            for (int i = 1; i <= 2; i++)
+            //Цикл если надо будет смотреть больше одной страницы
+            for (int i = 1; i <=1 ; i++)
             {
                 urlParams += i;
                 //Создание запроса

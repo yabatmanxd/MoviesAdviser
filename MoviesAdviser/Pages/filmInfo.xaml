@@ -34,6 +34,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" FontSize="14" Margin="10 5 10 5">Год:</TextBlock>
             <TextBlock Grid.Row="0" Grid.Column="1" FontSize="14" Text="{Binding Path=Year,IsAsync=True}" Margin="10 5 10 5"></TextBlock>
@@ -43,6 +44,7 @@
             <TextBlock Grid.Row="2" Grid.Column="1" FontSize="14" Text="{Binding Path=Genre,IsAsync=True}" Margin="10 5 10 5"></TextBlock>
             <TextBlock Grid.Row="3" Grid.Column="0" FontSize="14" Margin="10 5 10 5">Оценка:</TextBlock>
             <TextBlock Grid.Row="3" Grid.Column="1" FontSize="14" Text="{Binding Path=Rating,IsAsync=True}" Margin="10 5 10 5"></TextBlock>
+            <Button Grid.Row="4" Name="AddFav"></Button>
         </Grid>
         <TextBlock Margin="10" Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Grid.ColumnSpan="2" FontSize="14" MaxWidth="920" Name="tb_description" Text="{Binding Path=Description,IsAsync=True}" ScrollViewer.CanContentScroll="True"></TextBlock>
 

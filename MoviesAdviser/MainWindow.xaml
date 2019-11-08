@@ -14,7 +14,7 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
-            <MenuItem Header="Избранное"></MenuItem>
+            <MenuItem Name="Favs" Header="Избранное" Click="Favs_Click"></MenuItem>
         </Menu>
         <Frame Grid.Row="1" Name="mainFrame" Source="Pages/main.xaml">
         </Frame>
