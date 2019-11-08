@@ -47,8 +47,8 @@
                     <Style TargetType="{x:Type ListBoxItem}">
                         <Style.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Foreground" Value="#285473"/>
-                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Control.Foreground" Value="#285473"/>
+                                <Setter Property="Control.BorderThickness" Value="0"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>

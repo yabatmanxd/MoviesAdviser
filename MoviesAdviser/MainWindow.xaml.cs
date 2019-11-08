@@ -35,5 +35,10 @@ namespace MoviesAdviser
         {
             mainFrame.Navigate(new Uri("Pages/favorites.xaml", UriKind.Relative));           
         }
+
+        private void Main_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.Navigate(new Uri("Pages/main.xaml", UriKind.Relative));
+        }
     }
 }
