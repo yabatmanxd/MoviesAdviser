@@ -30,10 +30,7 @@ namespace MoviesAdviser.Models
         public string Link { get; set; }
 
         public string Description { get; set; }
-
-        //Список комментариев и рецензий к фильму (в конструкторе не инициализируется, будет заполняться браузерами сайтов
-        public List<Comment> comments { get; set; }
-
+        
         public Movie()
         {
 
@@ -74,13 +71,6 @@ namespace MoviesAdviser.Models
                     }
                 }
             }
-        }
-
-        //Вложенный класс комментария к фильму
-        public class Comment
-        {
-            public string Author { get; set; }
-            public string Message { get; set; }
-        }
+        }        
     }
 }
