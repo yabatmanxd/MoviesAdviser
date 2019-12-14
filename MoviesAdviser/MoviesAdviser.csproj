@@ -86,7 +86,6 @@
     <Compile Include="Pages\waitConnection.xaml.cs">
       <DependentUpon>waitConnection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\Analyzer.cs" />
     <Compile Include="Services\ConnectionTester.cs" />
     <Compile Include="Services\TvigleBrowser.cs" />
     <Compile Include="Services\TMDBBrowser.cs" />

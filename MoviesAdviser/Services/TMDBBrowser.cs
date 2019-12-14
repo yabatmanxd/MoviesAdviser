@@ -15,12 +15,7 @@ namespace MoviesAdviser.Services
     //Поиск по The Movie Database
     public class TMDBBrowser : BrowserInterface
     {
-        public bool IsAvailable()
-        {
-            throw new NotImplementedException();
-        }
-
-       
+           
         public List<Movie> GetMoviesList(string genre, int year, string country, string sortMethod)
         {
             List<Movie> movies = new List<Movie>();            

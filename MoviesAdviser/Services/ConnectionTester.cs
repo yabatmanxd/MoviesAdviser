@@ -26,12 +26,6 @@ namespace MoviesAdviser.Services
                 return false;             
             }
         }
-
-        
-
-        public bool TestConnection(string url)
-        {
-            throw new NotImplementedException();
-        }
+             
     }
 }

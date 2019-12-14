@@ -103,12 +103,7 @@ namespace MoviesAdviser.Services
                 movieList = movieList.OrderByDescending(x => x.Rating).ToList();
             }
             return movieList;
-        }
-
-        public bool IsAvailable()
-        {
-            throw new NotImplementedException();
-        }
+        }      
 
         public static Movie ParseMoreInfo(Movie mvObj)
         {
