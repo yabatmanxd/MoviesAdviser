@@ -13,10 +13,19 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
+        <Menu Grid.Row="0" FontSize="16">
+            <Menu.Background>
+                <SolidColorBrush Color="#005FF9"/>
+            </Menu.Background>
+            <Menu.Foreground>
+                <SolidColorBrush Color="White"/>
+            </Menu.Foreground>
+            <MenuItem Name="Main" Header="Главная" Click="Main_Click"></MenuItem>
             <MenuItem Name="Favs" Header="Избранное" Click="Favs_Click"></MenuItem>
+            
         </Menu>
-        <Frame Grid.Row="1" Name="mainFrame" Source="Pages/main.xaml">
+        <Frame Grid.Row="1" Name="mainFrame" FontSize="16" Source="Pages/main.xaml">
+            
         </Frame>
     </Grid>
     
