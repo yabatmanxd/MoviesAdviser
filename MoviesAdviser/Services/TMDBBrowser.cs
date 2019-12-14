@@ -83,7 +83,7 @@ namespace MoviesAdviser.Services
              
         private string GetMovieInfo(dynamic id)
         {
-            string movieURL = "https://api.themoviedb.org/3/movie/" + id + "?api_key=b41296940c36d7ed60f4f56e9d17bf65&language=ru";
+            string movieURL = "https://api.themoviedb.org/3/movie/" + id + "?api_key=b41296940c36d7ed60f4f56e9d17bf65";
             return  GetResponse(movieURL, "GET");    
         }
         private string GetResponse(string url, string method)
